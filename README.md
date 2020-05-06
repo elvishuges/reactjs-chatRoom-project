@@ -11,3 +11,7 @@ Reducers armazeno as reducers criadas assim como a reducers mestre.
 Layout são os jsx padrões como form de autenticação e reset forms mensagens.
 
 Components ficam os arquivos específicos dos components.
+
+=================links interresantes==================
+
+https://designrevision.com/react-axios/ (para se basear na importação dos serviços)
