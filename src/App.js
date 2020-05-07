@@ -1,14 +1,35 @@
-import React from 'react';
-import List from './components/List'
+import React from "react";
+import List from "./components/List";
+import appService from "./services/app.service";
 
-import './App.css';
+import "./App.css";
 
-function App() {
-    return ( 
-	<div>
-		<List/>
-	</div>
+export default class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      list: [],
+    };
+  }
+
+  componentDidMount() {
+    appService
+      .users()
+      .then((rsp) => {
+        console.log("resposta lista", rsp);
+        this.setState({ list: rsp.data.data });
+      })
+      .catch((err) => {
+        // handle your error here
+        console.log(err);
+      });
+  }
+  render() {
+    var list = this.state.list;
+    return (
+      <div>
+        <List list={list} />
+      </div>
     );
+  }
 }
-
-export default App
