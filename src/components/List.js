@@ -11,7 +11,7 @@ import Typography from '@material-ui/core/Typography';
 const useStyles = makeStyles((theme) => ({
   root: {
     width: '100%',
-    maxWidth: '100ch',
+    maxWidth: '36ch',
     backgroundColor: theme.palette.background.paper,
   },
   inline: {
@@ -19,14 +19,16 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function AlignItemsList() {
+export default function AlignItemsList(props) {
   const classes = useStyles();
-  
 
 
-  return (
-    <List className={classes.root}>
-      <ListItem alignItems="flex-start">
+  const renderRows =  () =>{
+	const list  = props.list || [];        
+
+	return list.map(todo =>(
+		<div>
+			<ListItem alignItems="flex-start">
         <ListItemAvatar>
           <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
         </ListItemAvatar>
@@ -47,7 +49,13 @@ export default function AlignItemsList() {
           }
         />
       </ListItem>
-      <Divider variant="inset" component="li" />          
+		</div>
+	))
+}
+
+  return (
+    <List className={classes.root}>
+      {renderRows}      
     </List>
   );
 }
