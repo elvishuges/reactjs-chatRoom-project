@@ -1,5 +1,6 @@
 import React from "react";
-import List from "./components/List";
+import List from "./components/List/List";
+import Drawer from "./components/Drawer/Drawer";
 import appService from "./services/app.service";
 
 import "./App.css";
@@ -28,7 +29,9 @@ export default class App extends React.Component {
     var list = this.state.list;
     return (
       <div>
-        <List list={list} />
+            <Drawer list={list}>
+		     	<List />
+			</Drawer>
       </div>
     );
   }
