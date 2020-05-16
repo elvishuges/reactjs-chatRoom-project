@@ -23,7 +23,7 @@ export default (props) => {
   const classes = useStyles();
 
   const renderRows = () => {
-	
+	console.log('props>>',props)
     const list = props.list || [];
 
     return list.map((todo) => (

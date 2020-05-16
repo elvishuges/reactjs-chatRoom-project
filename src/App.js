@@ -26,11 +26,12 @@ export default class App extends React.Component {
       });
   }
   render() {
-    var list = this.state.list;
+	//var list = this.state.list;
+	//console.log("lista aqui",list)
     return (
       <div>
-            <Drawer list={list}>
-		     	<List />
+            <Drawer >
+		     	<List list={this.state.list}/>
 			</Drawer>
       </div>
     );

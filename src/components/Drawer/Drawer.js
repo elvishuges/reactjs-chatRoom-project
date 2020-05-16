@@ -154,8 +154,7 @@ export default function PersistentDrawerLeft(props) {
         })}
       >
         <div className={classes.drawerHeader} />
-        <ListPeople/>		
-		  Elvis Huges
+         {props.children}		
       </main>
     </div>
   );
