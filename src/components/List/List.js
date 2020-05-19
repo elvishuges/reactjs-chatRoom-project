@@ -11,7 +11,7 @@ import Typography from "@material-ui/core/Typography";
 const useStyles = makeStyles((theme) => ({
   root: {
     width: "100%",
-    maxWidth: "150ch",
+    maxWidth: "250ch",
     backgroundColor: theme.palette.background.paper,
   },
   inline: {
@@ -27,10 +27,8 @@ export default (props) => {
     const list = props.list || [];
 
     return list.map((todo) => (
-      <ListItem alignItems="flex-start">
-        <ListItemAvatar>
+      <ListItem button key={todo.first_name}  alignItems="flex-start">
           <Avatar alt="Remy Sharp" src={todo.avatar} />{" "}
-        </ListItemAvatar>{" "}
         <ListItemText
           primary={"Brunch this weekend?"}
           secondary={
