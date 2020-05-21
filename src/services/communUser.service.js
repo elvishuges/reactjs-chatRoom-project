@@ -2,10 +2,10 @@ import { api } from './config'
 
 export default {
     usuario: {
-        login(user) {
+        login(email, password) {
             var obj = {
-                password: sha1(user.password),
-                username: user.username,
+                email: email,
+                password: password,
             }
             return api.post('/login', obj)
         },
@@ -13,6 +13,6 @@ export default {
             console.log(user);
             return api.post('/medico/register', user)
         },
-        s
+
     }
 }

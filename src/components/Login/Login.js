@@ -14,6 +14,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import { withStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 
+import communUserService from '../../services/communUser.service'
+
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
@@ -73,7 +75,14 @@ class SignIn extends React.Component {
         this.setState({ submitted: true });
         const { username, password } = this.state;
         if (username && password) {
-            this.props.login(username, password);
+			communUserService.usuario.login(username,password).
+			then((rsp) => {
+                console.log("rsp login", rsp);
+            })
+            .catch((err) => {
+                // handle your error here
+                console.log(err);
+            });
         }
     }
 
@@ -126,7 +135,7 @@ class SignIn extends React.Component {
             variant="contained"
             color="primary"
 			className={classes.submit}
-			onChange={this.handleSubmit} 
+			onClick={this.handleSubmit} 
           >
             Sign In
           </Button>
