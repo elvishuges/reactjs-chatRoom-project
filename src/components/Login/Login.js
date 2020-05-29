@@ -13,8 +13,11 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import { withStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import { login } from "../../services/auth";
 
 import communUserService from '../../services/communUser.service'
+import { useDispatch, useSelector } from 'react-redux';
+
 
 function Copyright() {
   return (
@@ -60,7 +63,8 @@ class SignIn extends React.Component {
             submitted: false
 		};
 		this.handleChange = this.handleChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
+		this.handleSubmit = this.handleSubmit.bind(this);
+		//this.dispatch = useDispatch();
 	  }
 
 	handleChange(e) {
@@ -77,7 +81,10 @@ class SignIn extends React.Component {
         if (username && password) {
 			communUserService.usuario.login(username,password).
 			then((rsp) => {
-                console.log("rsp login", rsp);
+				console.log("rsp login", rsp);
+				// salvar no local storage os dados so user.
+				login(rsp.data.token)
+				this.props.history.push("/app");
             })
             .catch((err) => {
                 // handle your error here
