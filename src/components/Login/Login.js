@@ -71,7 +71,11 @@ class SignIn extends React.Component {
 		console.log("handleChange",e.target)
         const { name, value } = e.target;
         this.setState({ [name]: value });
-    }
+	}
+	
+	register = () =>{
+		this.props.history.push('/register');
+	}
 
 	handleSubmit(e) {
         console.log("handleSubmit",e.target)
@@ -84,7 +88,7 @@ class SignIn extends React.Component {
 				console.log("rsp login", rsp);
 				// salvar no local storage os dados so user.
 				login(rsp.data.token)
-				this.props.history.push("/app");
+				this.props.history.push("/HomeUser");
             })
             .catch((err) => {
                 // handle your error here
@@ -153,7 +157,7 @@ class SignIn extends React.Component {
               </Link>
             </Grid>
             <Grid item>
-              <Link href="#" variant="body2">
+              <Link onClick ={this.register} href="#" variant="body2">
                 {"Don't have an account? Sign Up"}
               </Link>
             </Grid>

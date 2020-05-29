@@ -1,7 +1,7 @@
-// para dizer se usuário esta authenticado ou n
-// aqui poderiamos is no localstorage, verificar se ele esta authenticado e retornar true ou false.
-//export const isAuthenticated = () => true;
-//localStorage.getItem('user')
+/**
+ * aqui podemos armazenar os dados do usuário apos o login do mesmo
+ * 
+ *  */
 export const TOKEN_KEY = "@airbnb-Token";
 export const isAuthenticated = () => localStorage.getItem(TOKEN_KEY) !== null;
 export const getToken = () => localStorage.getItem(TOKEN_KEY);
