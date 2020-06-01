@@ -69,6 +69,7 @@ class SignIn extends React.Component {
   }
 
   handleChange(e) {
+	//this.props.login("oiii")
     console.log("handleChange", e.target);
     const { name, value } = e.target;
     this.setState({
@@ -90,8 +91,9 @@ class SignIn extends React.Component {
         .login(username, password)
         .then((rsp) => {
           console.log("rsp login", rsp);
-          // salvar no local storage os dados so user.
-          login(rsp.data.token);
+		  // persistir data in redux-persist
+		  var user = { nome: "S Logado", role: 1 }
+          this.props.login(user)
           this.props.history.push("/HomeUser");
         })
         .catch((err) => {
@@ -102,23 +104,21 @@ class SignIn extends React.Component {
   }
 
   render() {
-    const { classes } = this.props;
-	const { username, password, submitted } = this.state;
-	const { login, user } = this.props;
-	console.log('Props!!!!',this.props)
-	console.log('123',AuthActions)
+	const { classes } = this.props;
+	console.log("propsssssssssssss",this.props)
+    const { username, password, submitted } = this.state;
+    const { login, user } = this.props;
+
     return (
-	
       <Container component="main" maxWidth="xs">
         <CssBaseline />
-		<div></div>
+        <div> </div>{" "}
         <div className={classes.paper}>
           <Avatar className={classes.avatar}>
             <LockOutlinedIcon />
           </Avatar>{" "}
-		  
           <Typography component="h1" variant="h5">
-            Sign in			
+            Sign in
           </Typography>{" "}
           <form className={classes.form} noValidate>
             <TextField
@@ -164,11 +164,10 @@ class SignIn extends React.Component {
               <Grid item xs>
                 <Link href="#" variant="body2">
                   Forgot password ?
-				  	
                 </Link>{" "}
               </Grid>{" "}
               <Grid item>
-                <Link onClick={() => login({"email":"eve.holt@reqres.in","password":"cityslicka"})} href="#" variant="body2">
+                <Link href="#" variant="body2">
                   {" "}
                   {"Don't have an account? Sign Up"}{" "}
                 </Link>{" "}
@@ -183,15 +182,12 @@ class SignIn extends React.Component {
     );
   }
 }
-const mapStateToProps = store => ({  
+const mapStateToProps = (store) => ({
 	user: store.user
-  });
+});
 
-const mapDispatchToProps = dispatch =>
-  bindActionCreators({...AuthActions }, dispatch);
+const mapDispatchToProps = (dispatch) =>
+  bindActionCreators({ ...AuthActions }, dispatch);
 
 const SignStyled = withStyles(styles)(SignIn); // fiz isso para adicionar um store do reducer
-export default connect(
-	mapStateToProps,
-	mapDispatchToProps
-  )(SignStyled);
+export default connect(mapStateToProps, mapDispatchToProps)(SignStyled);

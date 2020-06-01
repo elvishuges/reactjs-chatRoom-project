@@ -3,14 +3,16 @@ export const types = {
     logout: "auth/logout"
 };
 
-
-
 const initialState = {
-	user: {name:"",login:""}
-  };
+    user: {
+        nome: "N Logado",
+        role: 1
+    }
+};
 
 export default function auth(state = initialState, action) {
-    
+    console.log('state', state)
+    console.log('action', action)
     switch (action.type) {
         case types.login:
             return {
@@ -20,7 +22,7 @@ export default function auth(state = initialState, action) {
         case types.logout:
             return {
                 ...state,
-                user: action.newValue
+                user: ""
             };
         default:
             return state

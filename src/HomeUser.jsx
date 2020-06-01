@@ -2,9 +2,7 @@ import React from 'react';
 import Link from '@material-ui/core/Link';
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
-
 import CardBarbearia from './components/CardBarbearia/Card'
-
 
 import { useDispatch, useSelector } from 'react-redux';
 
