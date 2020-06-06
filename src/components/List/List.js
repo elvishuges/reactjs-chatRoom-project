@@ -23,30 +23,34 @@ export default (props) => {
   const classes = useStyles();
 
   const renderRows = () => {
-	console.log('props>>',props)
+    console.log("props>>", props);
     const list = props.list || [];
-
-    return list.map((todo) => (
-      <ListItem button key={todo.first_name}  alignItems="flex-start">
-          <Avatar alt="Remy Sharp" src={todo.avatar} />{" "}
-        <ListItemText
-          primary={"Brunch this weekend?"}
-          secondary={
-            <React.Fragment>
-              <Typography
-                component="span"
-                variant="body2"
-                className={classes.inline}
-                color="textPrimary"
-              >
-                {todo.first_name} {todo.last_name}{" "}
-              </Typography>{" "}
-              {" — I'll be in your neighborhood doing errands this…"}{" "}
-            </React.Fragment>
-          }
-        />{" "}
-      </ListItem>
-    ));
+    if(list.length){
+		return list.map((todo) => (
+			<ListItem button key={todo.first_name} alignItems="flex-start">
+			  <Avatar alt="Remy Sharp" src={todo.avatar} />{" "}
+			  <ListItemText
+				primary={"Brunch this weekend?"}
+				secondary={
+				  <React.Fragment>
+					<Typography
+					  component="span"
+					  variant="body2"
+					  className={classes.inline}
+					  color="textPrimary"
+					>
+					  {todo.first_name} {todo.last_name}{" "}
+					</Typography>{" "}
+					{" — I'll be in your neighborhood doing errands this…"}{" "}
+				  </React.Fragment>
+				}
+			  />{" "}
+			</ListItem>
+		  )); 
+	}
+	else{
+       return "Lista Vazia"
+	}    
   };
 
   return <List className={classes.root}> {renderRows()} </List>;

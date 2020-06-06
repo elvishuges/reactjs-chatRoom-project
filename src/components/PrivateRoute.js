@@ -4,6 +4,31 @@ import { Route, Redirect } from "react-router-dom";
 import { store } from './../store';
 
 
+const PrivateRouteLogin = ({ component: Component,role, ...rest }) => (	
+  <Route
+    {...rest}
+	render={(props) =>{	
+		if(!store.getState().user.role){
+			return <Component {...props} />
+		}
+		else{
+			switch (store.getState().user.role) {
+				case 1:
+					return <Redirect to={{ pathname: '/HomeUser', state: { from: props.location } }} />		
+					
+				case 1:
+					return <Redirect to={{ pathname: '/HomeUser2', state: { from: props.location } }} />	
+				default:
+					break;
+			}
+		}			
+    }}
+  />
+)
+
+
+
+
 const PrivateRoute = ({ component: Component,role, ...rest }) => (
 	console.log('storeeeeeeeeee11111 state',store.getState()),
   <Route
@@ -14,10 +39,9 @@ const PrivateRoute = ({ component: Component,role, ...rest }) => (
 		}
 		else if (store.getState().user.role !== role ) {
 			return <Redirect to={{ pathname: '/login', state: { from: props.location } }} />		
-		}
-		
+		}		
     }}
   />
 );
 
-export default PrivateRoute;
+export {PrivateRoute, PrivateRouteLogin};
