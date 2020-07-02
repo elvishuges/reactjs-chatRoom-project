@@ -1,12 +1,12 @@
 import React, { lazy } from "react";
 
 import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
-import {PrivateRoute, PrivateRouteLogin} from "./components/PrivateRoute";
-import Sign from "./components/Login/Login";
+import {PrivateRoute, PrivateRouteLogin} from "./components/Routes/PrivateRoute";
+import Sign from "./Login"
 import HomeUser from "./HomeUser";
-import Register from "./components/Register/Register";
+import Register from "./Register";
 import HomeAdmin from "./HomeAdmin"
-import Drawer from "./components/Drawer/Drawer"
+import ResponsiveDrawer from "./components/HomeAdmin/Drawer"
 
 
 export const Routes = () => (
@@ -20,8 +20,8 @@ export const Routes = () => (
       ></PrivateRoute>
       <PrivateRoute path="/register" component={Register}></PrivateRoute>
       <Route path="/register" component={Register}></Route>
-	  <Route path="/drawer" component={Drawer}></Route>
-	  <Route path="/homeAdmin" component={HomeAdmin}></Route>
+      <Route path="/drawer" component={ResponsiveDrawer}></Route>
+      <Route path="/homeAdmin" component={HomeAdmin}></Route>
       <PrivateRouteLogin path="/login" component={Sign}></PrivateRouteLogin>
     </Switch>
   </BrowserRouter>

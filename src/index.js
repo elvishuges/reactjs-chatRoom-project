@@ -2,12 +2,10 @@ import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
-import HomeAdmin from "./HomeAdmin";
 import * as serviceWorker from "./serviceWorker";
 import { Provider } from "react-redux";
 import { store } from "./store/index";
 import { persistor } from "./store/index";
-import Drawer from './components/Drawer/Drawer'
 
 import { PersistGate } from "redux-persist/integration/react";
 

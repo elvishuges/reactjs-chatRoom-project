@@ -18,7 +18,7 @@ import Typography from "@material-ui/core/Typography";
 import { withStyles } from "@material-ui/core/styles";
 import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
 
-import Register from '../../components/Register/Register'
+import Register from '../../Register'
 
 const drawerWidth = 240;
 

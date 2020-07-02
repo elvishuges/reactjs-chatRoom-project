@@ -13,12 +13,12 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import { withStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
-import { login } from "../../services/auth";
+import { login } from "../services/auth";
 
-import communUserService from "../../services/communUser.service";
+import communUserService from "../services/communUser.service";
 import { useDispatch, useSelector } from "react-redux";
 import { connect } from "react-redux";
-import { Creators as AuthActions } from "./../../reducers/duck/auth";
+import { Creators as AuthActions } from "../reducers/duck/auth";
 import { bindActionCreators } from "redux";
 
 function Copyright() {

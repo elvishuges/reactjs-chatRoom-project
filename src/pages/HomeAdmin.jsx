@@ -2,16 +2,7 @@ import React from 'react';
 import Link from '@material-ui/core/Link';
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
-import CardBarbearia from './components/CardBarbearia/Card'
-import Drawer from './components/Drawer/Drawer'
-import List from './components/List/List'
-import { RoutesAdmin } from "./routes";
-
-
-import Routes from "./routes";
-
-import { useDispatch, useSelector } from 'react-redux';
-
+import ResponsiveDrawer  from "./components/HomeAdmin/Drawer";
 
 function Copyright() {
   return (
@@ -78,7 +69,7 @@ class HomeAdmin extends React.Component {
   const { username, password, submitted } = this.state;
   return (
     <div>
-		<Drawer></Drawer>			
+		<ResponsiveDrawer></ResponsiveDrawer>			
 	</div>
   )};
 }

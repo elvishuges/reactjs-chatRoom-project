@@ -1,7 +1,7 @@
 import React from "react";
 import { Route, Redirect } from "react-router-dom";
 
-import { store } from './../store';
+import { store } from '../../../store';
 
 
 const PrivateRouteLogin = ({ component: Component,role, ...rest }) => (	
