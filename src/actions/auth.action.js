@@ -9,29 +9,19 @@ export const loginUser = (username,password) => {
         console.log('****** entrou *****');
 
         dispatch({
-            type: types.sucess_logout
-        });        
+            type: types.submit_login
+        });       
 
         const response = await api.login(username,password)
             .then(rsp => {   
-                console.log('rsp data',rsp.data);
-                                 
-                dispatch({
-                    type: "LOGIN_USER_SUCCESS"
-                });
-                dispatch({
-                    type: "AUTH_USER_SUCCESS",
-                    token: rsp.data.token
-                });
-
+                console.log('rsp data',rsp.data);  
                 return rsp;
             })
             .catch(error => {
                 console.log(error);                      
                 dispatch({
-                    type: "LOGIN_USER_FAIL",
-                    payload: 'Email ou senha errados'
-                    
+                    type: types.failed_login,
+                    payload: 'Email ou senha errados'                    
                 });
                 return error;
             });
@@ -39,15 +29,3 @@ export const loginUser = (username,password) => {
             return response
     }
 }
-
-export const Creators = {
-    login: (value) => ({
-        type: types.login,
-        newValue: value
-    }),
-
-    logout: (value) => ({
-        type: types.logout,
-        newValue: value
-    })
-};

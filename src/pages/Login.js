@@ -13,11 +13,13 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import { withStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 import { login } from "../services/auth";
 import communUserService from "../services/communUser.service";
 import { useDispatch, useSelector } from "react-redux";
 import { connect } from "react-redux";
+import {compose} from "redux";
 import { Creators as AuthActions } from "../reducers/duck/reducer.auth";
 import { loginUser } from '../actions/auth.action'
 import { bindActionCreators } from "redux";
@@ -69,8 +71,6 @@ class SignIn extends React.Component {
   }
 
   handleChange(e) {
-    //this.props.login("oiii")
-    console.log("handleChange", e.target);
     const { name, value } = e.target;
     this.setState({
       [name]: value,
@@ -87,14 +87,15 @@ class SignIn extends React.Component {
     this.setState({ submitted: true });
     const { username, password } = this.state;    
     const resp = await this.props.dispatch(loginUser(username,password))
-     
+    console.log("** RSP EM LOGIN**",resp);
+    
   }
 
   render() {
     const { classes } = this.props;
     console.log("propsssssssssssss", this.props)
     const { username, password, submitted } = this.state;
-    const { login, user } = this.props;
+    const { isLoading } = this.props.user;
 
     return (
       <Container component="main" maxWidth="xs">
@@ -145,8 +146,8 @@ class SignIn extends React.Component {
               className={classes.submit}
               onClick={this.handleSubmit}
             >
-              Sign In{" "}
-            </Button>{" "}
+              Sign In{""}
+            </Button>{isLoading && <CircularProgress size={24} className={classes.buttonProgress} />}
             <Grid container>
               <Grid item xs>
                 <Link href="#" variant="body2">
@@ -184,5 +185,11 @@ const mapDispatchToProps = (dispatch) => ({
 
 
 const SignStyled = withStyles(styles)(SignIn); // fiz isso para adicionar um store do reducer
-export default connect(mapStateToProps, mapDispatchToProps)(SignStyled);
+//export default connect(mapStateToProps, mapDispatchToProps)(SignStyled);
+
+export default compose(
+  connect(mapStateToProps, mapDispatchToProps)
+  
+  )(SignStyled);
+  
 

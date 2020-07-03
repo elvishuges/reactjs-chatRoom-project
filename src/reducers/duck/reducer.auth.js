@@ -1,29 +1,50 @@
 export const types = {
+    submit_login:"auth/submit_login",
     sucess_login: "auth/sucess_login",
-    sucess_logout: "auth/sucess_logout"
+    failed_login: "auth/sucess_login",    
+    sucess_logout: "auth/sucess_logout",
+    failed_logout: "auth/failed_logout",
 };
 
 const initialState = {
     user: {
-        nome: "N Logado",
-        role: 0
+        isLoggedIn: false,
+        error:null,
+        isLoading:false
     }
 };
 
 export default function auth(state = initialState, action) {
-    console.log('**** REDUCER ACTION****',action);
+    console.log('**** REDUCER STATE****',state);
     
     switch (action.type) {
+        case types.submit_login:
+            return {  
+                user: {                            
+                isLoggedIn: false,
+                isLoading: true,
+                error:'',
+                }
+              }
         case types.sucess_login:
-            return {
-                ...state,
-                user: action.newValue
+            return {                
+                isLoggedIn: true,
+                isLoading: false,
+                error:'',
+            };
+            case types.failed_login:
+            return {                
+                isLoggedIn: false,
+                isLoading: false,
+                error:action.payload,
             };
         case types.sucess_logout:
-            return {
-                ...state,
-                user: ""
+            return {                
+                isLoggedIn: false,
+                isLoading: true,
+                error:'',
             };
+            
         default:
             return state
     }
