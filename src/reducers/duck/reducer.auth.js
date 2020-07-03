@@ -1,25 +1,25 @@
 export const types = {
-    login: "auth/login",
-    logout: "auth/logout"
+    sucess_login: "auth/sucess_login",
+    sucess_logout: "auth/sucess_logout"
 };
 
 const initialState = {
     user: {
         nome: "N Logado",
-        role: 1
+        role: 0
     }
 };
 
 export default function auth(state = initialState, action) {
-    console.log('state', state)
-    console.log('action', action)
+    console.log('**** REDUCER ACTION****',action);
+    
     switch (action.type) {
-        case types.login:
+        case types.sucess_login:
             return {
                 ...state,
                 user: action.newValue
             };
-        case types.logout:
+        case types.sucess_logout:
             return {
                 ...state,
                 user: ""
@@ -31,12 +31,12 @@ export default function auth(state = initialState, action) {
 
 export const Creators = {
     login: (value) => ({
-        type: types.login,
+        type: types.sucess_login,
         newValue: value
     }),
 
     logout: (value) => ({
-        type: types.logout,
+        type: types.sucess_logout,
         newValue: value
     })
 };

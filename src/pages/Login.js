@@ -13,12 +13,13 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import { withStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
-import { login } from "../services/auth";
 
+import { login } from "../services/auth";
 import communUserService from "../services/communUser.service";
 import { useDispatch, useSelector } from "react-redux";
 import { connect } from "react-redux";
-import { Creators as AuthActions } from "../reducers/duck/auth";
+import { Creators as AuthActions } from "../reducers/duck/reducer.auth";
+import { loginUser } from '../actions/auth.action'
 import { bindActionCreators } from "redux";
 
 function Copyright() {
@@ -65,11 +66,10 @@ class SignIn extends React.Component {
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-    //this.dispatch = useDispatch();
   }
 
   handleChange(e) {
-	//this.props.login("oiii")
+    //this.props.login("oiii")
     console.log("handleChange", e.target);
     const { name, value } = e.target;
     this.setState({
@@ -81,31 +81,18 @@ class SignIn extends React.Component {
     this.props.history.push("/register");
   };
 
-  handleSubmit(e) {
+  handleSubmit = async (e) => {
     console.log("handleSubmit", e.target);
     e.preventDefault();
     this.setState({ submitted: true });
-    const { username, password } = this.state;
-    if (username && password) {
-      communUserService.usuario
-        .login(username, password)
-        .then((rsp) => {
-          console.log("rsp login", rsp);
-		  // persistir data in redux-persist
-		  var user = { nome: "S Logado", role: 1 }
-          this.props.login(user)
-          this.props.history.push("/HomeUser");
-        })
-        .catch((err) => {
-          // handle your error here
-          console.log(err);
-        });
-    }
+    const { username, password } = this.state;    
+    const resp = await this.props.dispatch(loginUser(username,password))
+     
   }
 
   render() {
-	const { classes } = this.props;
-	console.log("propsssssssssssss",this.props)
+    const { classes } = this.props;
+    console.log("propsssssssssssss", this.props)
     const { username, password, submitted } = this.state;
     const { login, user } = this.props;
 
@@ -175,6 +162,8 @@ class SignIn extends React.Component {
             </Grid>{" "}
           </form>{" "}
         </div>{" "}
+        "email": "eve.holt@reqres.in",
+    "password": "cityslicka"
         <Box mt={8}>
           <Copyright />
         </Box>{" "}
@@ -183,11 +172,17 @@ class SignIn extends React.Component {
   }
 }
 const mapStateToProps = (store) => ({
-	user: store.user
+  user: store.user
 });
 
-const mapDispatchToProps = (dispatch) =>
-  bindActionCreators({ ...AuthActions }, dispatch);
+// const mapDispatchToProps = (dispatch) =>
+//   bindActionCreators({ ...AuthActions }, dispatch);
+
+const mapDispatchToProps = (dispatch) => ({
+  dispatch
+});
+
 
 const SignStyled = withStyles(styles)(SignIn); // fiz isso para adicionar um store do reducer
 export default connect(mapStateToProps, mapDispatchToProps)(SignStyled);
+

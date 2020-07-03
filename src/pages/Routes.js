@@ -22,7 +22,7 @@ export const Routes = () => (
       <Route path="/register" component={Register}></Route>
       <Route path="/drawer" component={ResponsiveDrawer}></Route>
       <Route path="/homeAdmin" component={HomeAdmin}></Route>
-      <PrivateRouteLogin path="/login" component={Sign}></PrivateRouteLogin>
+      <Route path="/login" component={Sign}></Route>
     </Switch>
   </BrowserRouter>
 );

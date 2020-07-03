@@ -8,7 +8,7 @@ const PrivateRouteLogin = ({ component: Component,role, ...rest }) => (
   <Route
     {...rest}
 	render={(props) =>{	
-		if(!store.getState().user.role){
+		if(store.getState().user.role == 0){
 			return <Component {...props} />
 		}
 		else{
@@ -16,7 +16,7 @@ const PrivateRouteLogin = ({ component: Component,role, ...rest }) => (
 				case 1:
 					return <Redirect to={{ pathname: '/HomeUser', state: { from: props.location } }} />		
 					
-				case 1:
+				case 2:
 					return <Redirect to={{ pathname: '/HomeUser2', state: { from: props.location } }} />	
 				default:
 					break;
