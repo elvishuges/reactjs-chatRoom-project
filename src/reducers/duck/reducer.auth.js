@@ -16,6 +16,7 @@ const initialState = {
 
 export default function auth(state = initialState, action) {
     console.log('**** REDUCER STATE****',state);
+    console.log('**** REDUCER Action****',action);
     
     switch (action.type) {
         case types.submit_login:
@@ -28,21 +29,27 @@ export default function auth(state = initialState, action) {
               }
         case types.sucess_login:
             return {                
-                isLoggedIn: true,
-                isLoading: false,
-                error:'',
+                user: {                            
+                    isLoggedIn: true,
+                    isLoading: false,
+                    error:'',
+                    }
             };
             case types.failed_login:
             return {                
-                isLoggedIn: false,
-                isLoading: false,
-                error:action.payload,
+                user: {                            
+                    isLoggedIn: false,
+                    isLoading: false,
+                    error:action.payload,
+                    }
             };
         case types.sucess_logout:
             return {                
-                isLoggedIn: false,
-                isLoading: true,
-                error:'',
+                user: {                            
+                    isLoggedIn: false,
+                    isLoading: true,
+                    error:'',
+                }
             };
             
         default:

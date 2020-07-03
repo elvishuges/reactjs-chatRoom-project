@@ -14,15 +14,14 @@ export const loginUser = (username,password) => {
 
         const response = await api.login(username,password)
             .then(rsp => {   
-                console.log('rsp data',rsp.data);  
+                dispatch({
+                    type: types.sucess_login
+                }); 
                 return rsp;
             })
             .catch(error => {
-                console.log(error);                      
-                dispatch({
-                    type: types.failed_login,
-                    payload: 'Email ou senha errados'                    
-                });
+                console.log('*catch*',error);                     
+                
                 return error;
             });
 

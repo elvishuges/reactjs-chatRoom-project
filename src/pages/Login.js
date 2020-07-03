@@ -62,9 +62,8 @@ class SignIn extends React.Component {
     super(props);
 
     this.state = {
-      username: "",
-      password: "",
-      submitted: false,
+      username: "eve.holt@reqres.in",
+      password: "cityslicka",
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -75,27 +74,32 @@ class SignIn extends React.Component {
     this.setState({
       [name]: value,
     });
-  }
+  }  
 
   register = () => {
     this.props.history.push("/register");
   };
 
   handleSubmit = async (e) => {
-    console.log("handleSubmit", e.target);
     e.preventDefault();
     this.setState({ submitted: true });
     const { username, password } = this.state;    
     const resp = await this.props.dispatch(loginUser(username,password))
-    console.log("** RSP EM LOGIN**",resp);
-    
+    try {
+      
+    } catch (error) {
+      
+    } 
   }
 
   render() {
     const { classes } = this.props;
-    console.log("propsssssssssssss", this.props)
     const { username, password, submitted } = this.state;
     const { isLoading } = this.props.user;
+
+    const txtButton = () =>{    
+       return isLoading ? <CircularProgress size={25} className={classes.fabProgress} /> :'Logar' 
+    }
 
     return (
       <Container component="main" maxWidth="xs">
@@ -129,6 +133,7 @@ class SignIn extends React.Component {
               value={password}
               fullWidth
               name="password"
+              value={this.state.password}
               label="Password"
               type="password"
               id="password"
@@ -142,12 +147,13 @@ class SignIn extends React.Component {
             <Button
               fullWidth
               variant="contained"
-              color="primary"
+              color="primary"              
+              disabled={isLoading}
               className={classes.submit}
               onClick={this.handleSubmit}
             >
-              Sign In{""}
-            </Button>{isLoading && <CircularProgress size={24} className={classes.buttonProgress} />}
+              {txtButton()}
+            </Button>
             <Grid container>
               <Grid item xs>
                 <Link href="#" variant="body2">
@@ -162,9 +168,7 @@ class SignIn extends React.Component {
               </Grid>{" "}
             </Grid>{" "}
           </form>{" "}
-        </div>{" "}
-        "email": "eve.holt@reqres.in",
-    "password": "cityslicka"
+        </div>{" "}       
         <Box mt={8}>
           <Copyright />
         </Box>{" "}
