@@ -8,16 +8,10 @@ import CardMedia from "@material-ui/core/CardMedia";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 
-const useStyles = makeStyles({
-  root: {
-	maxWidth: 345,
-  },
-});
+
 
 export default function Dashboard() {
-  const classes = useStyles();
-
   return (
-    <div>Dashboard</div>
+    <div>Dashboard 1</div>
   );
 }

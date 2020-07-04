@@ -18,6 +18,6 @@ export default function Lojas() {
   const classes = useStyles();
 
   return (
-    <div>Page starred</div>
+    <div>Lojas</div>
   );
 }

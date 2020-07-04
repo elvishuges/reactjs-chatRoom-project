@@ -8,7 +8,6 @@ import Sign from "./Login"
 import HomeUser from "./HomeUser";
 import Register from "./Register";
 import HomeAdmin from "./HomeAdmin"
-import ResponsiveDrawer from "./components/HomeAdmin/Drawer"
 import Dashboard from "./components/HomeAdmin/Dashboard/Dashboard";
 import Lojas from "./components/HomeAdmin/Lojas/Lojas";
 
@@ -27,12 +26,12 @@ class Routes extends Component {
         {
           path: "/dashboard",
           exact: true,
-          sidebar: () => <ResponsiveDrawer/>,
+          sidebar: () => <HomeAdmin/>,
           main: () => <Dashboard/>
         },
         {
           path: "/lojas",
-          sidebar: () => <ResponsiveDrawer/>,
+          sidebar: () => <HomeAdmin/>,
           main: () => <Lojas/>
         },        
       ];
@@ -41,10 +40,10 @@ class Routes extends Component {
         <Switch >
           <Route exact path="/" component={() => <h1> Página Inicial </h1>} />
           <Route path="/HomeUser" user={this.props.user} component={HomeUser}></Route>
-          <PrivateRoute path="/register" user={this.props.user} component={Register}></PrivateRoute>         
-          <Route path="/drawer" component={ResponsiveDrawer}></Route>
-          <PrivateRoute path="/homeAdmin" component={HomeAdmin} user={this.props.user}></PrivateRoute>
+          <Route path="/register" user={this.props.user} component={Register}></Route>         
+          <Route path="/homeAdmin" component={HomeAdmin} user={this.props.user}></Route>
           <Route path="/login" component={Sign}></Route>
+          <Route  component={() => <h1> 404 Pagina nã encontrada </h1> } />
         </Switch>
         <Switch>
             {homeAdminRoutes.map((route, index) => (
