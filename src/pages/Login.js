@@ -14,6 +14,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { withStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import CircularProgress from '@material-ui/core/CircularProgress';
+import { bindActionCreators } from "redux";
 
 import { login } from "../services/auth";
 import communUserService from "../services/communUser.service";
@@ -22,7 +23,8 @@ import { connect } from "react-redux";
 import {compose} from "redux";
 import { Creators as AuthActions } from "../reducers/duck/reducer.auth";
 import { loginUser } from '../actions/auth.action'
-import { bindActionCreators } from "redux";
+import TextInput from './components/utils/TextInput'
+
 
 function Copyright() {
   return (
@@ -62,14 +64,14 @@ class SignIn extends React.Component {
     super(props);
 
     this.state = {
-      username: "eve.holt@reqres.in",
+      email: "eve.holt@reqres.in",
       password: "cityslicka",
     };
-    this.handleChange = this.handleChange.bind(this);
+    this.handleChangeInput = this.handleChangeInput.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  handleChange(e) {
+  handleChangeInput(e) {
     const { name, value } = e.target;
     this.setState({
       [name]: value,
@@ -83,18 +85,23 @@ class SignIn extends React.Component {
   handleSubmit = async (e) => {
     e.preventDefault();
     this.setState({ submitted: true });
-    const { username, password } = this.state;    
-    const resp = await this.props.dispatch(loginUser(username,password))
+    const { email, password } = this.state;    
+    const resp = await this.props.dispatch(loginUser(email,password))
     try {
-      
+      if(resp.status == 200){
+        // direcionar para interface
+      }
+      else{
+        throw (resp)
+      }
     } catch (error) {
-      
+        alert("Erro ao logar")
     } 
   }
 
   render() {
     const { classes } = this.props;
-    const { username, password, submitted } = this.state;
+    const { email, password, submitted } = this.state;
     const { isLoading } = this.props.user;
 
     const txtButton = () =>{    
@@ -112,33 +119,24 @@ class SignIn extends React.Component {
           <Typography component="h1" variant="h5">
             Sign in
           </Typography>{" "}
-          <form className={classes.form} noValidate>
-            <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              id="username"
-              onChange={this.handleChange}
-              label="Email Address"
-              name="username"
-              value={username}
-              autoComplete="username"
-              autoFocus
-            />
-            <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              value={password}
-              fullWidth
-              name="password"
-              value={this.state.password}
-              label="Password"
-              type="password"
-              id="password"
-              onChange={this.handleChange}
-              autoComplete="current-password"
+          <form className={classes.form} noValidate>             
+            <TextInput 
+            label="Email"
+            name="email"
+            id="email"
+            value={this.state.email}
+            type="email"
+            onChange={this.handleChangeInput}
+            id="password"
+            autoComplete="email"
+            />       
+            <TextInput 
+            label="Password"
+            name="password"
+            value={this.state.password}
+            type="password"
+            onChange={this.handleChangeInput}
+            id="password"
             />
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
@@ -192,8 +190,7 @@ const SignStyled = withStyles(styles)(SignIn); // fiz isso para adicionar um sto
 //export default connect(mapStateToProps, mapDispatchToProps)(SignStyled);
 
 export default compose(
-  connect(mapStateToProps, mapDispatchToProps)
-  
+  connect(mapStateToProps, mapDispatchToProps)  
   )(SignStyled);
   
 

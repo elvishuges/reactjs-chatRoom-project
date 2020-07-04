@@ -13,15 +13,26 @@ export const loginUser = (username,password) => {
         });       
 
         const response = await api.login(username,password)
-            .then(rsp => {   
+            .then(rsp => {  
+                console.log('*rsp request*',rsp);  
+                if(rsp.status == 200){
+                    console.log("#entrou if#");
+                    
+                    dispatch({
+                        type: types.sucess_login
+                    }); 
+                    return rsp;
+                }
                 dispatch({
-                    type: types.sucess_login
-                }); 
-                return rsp;
+                    type: types.failed_logout
+                })
+                
             })
             .catch(error => {
                 console.log('*catch*',error);                     
-                
+                dispatch({
+                    type: types.failed_login
+                }); 
                 return error;
             });
 

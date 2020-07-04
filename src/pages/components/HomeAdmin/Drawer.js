@@ -17,6 +17,8 @@ import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import { withStyles } from "@material-ui/core/styles";
 import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
+import Dashboard from "./../HomeAdmin/Dashboard/Dashboard";
+
 
 import Register from '../../Register'
 
@@ -57,11 +59,9 @@ class ResponsiveDrawer extends React.Component {
   state = {
     mobileOpen: false,
     listItem: [
-      { path: "/hello", name: "Inbox" },
-      { path: "/starred", name: "Starred" },
-      { path: "/sendEmail", name: "Send email" },
-	  { path: "/drafts", name: "Drafts" },
-	  { path: "/login", name: "Logout" },
+      { path: "/dashboard", name: "Inbox" },
+      { path: "/lojas", name: "Starred" },
+      
     ],
   };
 
@@ -103,58 +103,62 @@ class ResponsiveDrawer extends React.Component {
     );
 
     return (
-		
-      <div className={classes.root}>		   
-		<Router>
 
-        <CssBaseline />
-        <AppBar position="fixed" className={classes.appBar}>
-          <Toolbar>
-            <IconButton
-              color="inherit"
-              aria-label="Open drawer"
-              onClick={this.handleDrawerToggle}
-              className={classes.menuButton}
-            >
-              <MenuIcon />
-            </IconButton>
-            <Typography variant="h6" color="inherit" noWrap>
-              Responsive drawer
+      <div className={classes.root}>
+        <Router >
+
+          <CssBaseline />
+          <AppBar position="fixed" className={classes.appBar}>
+            <Toolbar>
+              <IconButton
+                color="inherit"
+                aria-label="Open drawer"
+                onClick={this.handleDrawerToggle}
+                className={classes.menuButton}
+              >
+                <MenuIcon />
+              </IconButton>
+              <Typography variant="h6" color="inherit" noWrap>
+                Responsive drawer
             </Typography>
-          </Toolbar>
-        </AppBar>
-        <nav className={classes.drawer}>
-          {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
-          <Hidden smUp implementation="css">
-            <Drawer
-              variant="temporary"
-              open={mobileOpen}
-              onClose={this.handleDrawerToggle}
-              classes={{
-                paper: classes.drawerPaper,
-              }}
-            >
-              {drawer}
-            </Drawer>
-          </Hidden>
-          <Hidden xsDown implementation="css">
-            <Drawer
-              classes={{
-                paper: classes.drawerPaper,
-              }}
-              variant="permanent"
-              open
-            >
-              {drawer}
-            </Drawer>
-          </Hidden>
-        </nav>
-        <main className={classes.content}>
-          <div className={classes.toolbar} />		 
-		  <Route exact path="/hello" component={()=><h1>oii</h1>} />   
-        </main>
-		</Router>
-		
+            </Toolbar>
+          </AppBar>
+          <nav className={classes.drawer}>
+            {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
+            <Hidden smUp implementation="css">
+              <Drawer
+                variant="temporary"
+                open={mobileOpen}
+                onClose={this.handleDrawerToggle}
+                classes={{
+                  paper: classes.drawerPaper,
+                }}
+              >
+                {drawer}
+              </Drawer>
+            </Hidden>
+            <Hidden xsDown implementation="css">
+              <Drawer
+                classes={{
+                  paper: classes.drawerPaper,
+                }}
+                variant="permanent"
+                open
+              >
+                {drawer}
+              </Drawer>
+            </Hidden>
+          </nav>
+          <main className={classes.content}>
+            <div className={classes.toolbar} />
+          <Switch>
+            <Route exact path="/"  />
+            <Route path="/lojas" />
+            <Route path="/dashboard"  render={() => <Dashboard/>}/>
+          </Switch>
+          </main>
+        </Router>
+
       </div>
     );
   }

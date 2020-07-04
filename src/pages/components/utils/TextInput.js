@@ -1,20 +1,56 @@
+import PropTypes from "prop-types";
+import React, {Component} from "react";
+
+
 import TextField from "@material-ui/core/TextField";
-import { Input } from "@material-ui/core";
 
 
-export default Input = () =>{
-    
-    <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              id="username"
-              onChange={this.handleChange}
-              label="Email Address"
-              name="username"
-              value={username}
-              autoComplete="username"
-              autoFocus
-            />
+export default class TextInput extends Component {
+
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      username: "eve.holt@reqres.in",
+      password: "cityslicka",
+    };
+
+    this.handleChangeInput = this.handleChangeInput.bind(this);
+  }
+    componentDidMount() {
+        this.setState({
+            value: this.props.value
+        }
+);
+    }
+
+    handleChangeInput(e) {
+      const { name, value } = e.target;
+      this.setState({
+        [name]: value,
+      });
+    }    
+
+    render() {
+        const {label,value,type,id,onChange,name,autoComplete} = this.props;
+        return (
+          <TextField
+          variant="outlined"
+          margin="normal"
+          required
+          value={value}
+          fullWidth
+          name={name}
+          label={label}
+          type={type}
+          id="password"
+          autoComplete={autoComplete}
+          onChange={onChange}
+          autoComplete="current-password"
+        />
+        );
+    }
 }
+
+
+
