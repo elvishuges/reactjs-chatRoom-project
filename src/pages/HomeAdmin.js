@@ -18,6 +18,11 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import { Switch, Route, Link, BrowserRouter } from "react-router-dom";
 
+import { connect } from "react-redux";
+import { compose } from "redux";
+import { logoutUser } from '../actions/auth.action'
+import { useHistory } from "react-router";
+
 const drawerWidth = 200;
 
 const useStyles = makeStyles(theme => ({
@@ -56,16 +61,25 @@ function HomeAdmin(props) {
   const { container } = props;
   const classes = useStyles();
   const theme = useTheme();
+  const history = useHistory();
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const listItem = [
-    { path: "/dashboard", name: "Inbox" },
+    { path: "/homeAdmin", name: "Index" },
     { path: "/lojas", name: "Starred" },
-    { path: "/Logout", name: "logout" },
-    
+
   ]
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
+
+  const handleLogout = () => {
+    props.dispatch(logoutUser())
+    history.push({
+      pathname: "/login",
+      location: "/login"
+    });
+  }
+
 
   const drawer = (
     <div>
@@ -80,6 +94,12 @@ function HomeAdmin(props) {
             <ListItemText primary={text.name} />
           </ListItem>
         ))}
+        <ListItem onClick={handleLogout} key='logout' component={Link} >
+          <ListItemIcon>
+            <InboxIcon />
+          </ListItemIcon>
+          <ListItemText primary='Logout' />
+        </ListItem>
       </List>
     </div>
   );
@@ -99,7 +119,7 @@ function HomeAdmin(props) {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap>
-            Responsive drawer
+            Admin
           </Typography>
         </Toolbar>
       </AppBar>
@@ -137,9 +157,8 @@ function HomeAdmin(props) {
         </nav>
 
         <main className={classes.content}>
-          
           <Switch>
-            <Route exact path="/homeAdmin" render={() => <div>Home Page</div>} />
+            <Route path="/homeAdmin" render={() => <div>Index</div>} />
             <Route path="/dashboard" render={() => <div> Dashboard</div>} />
             <Route path="/lojas" render={() => <div>Lojas</div>} />
           </Switch>
@@ -149,14 +168,17 @@ function HomeAdmin(props) {
   );
 }
 
-HomeAdmin.propTypes = {
-  /**
-   * Injected by the documentation to work in an iframe.
-   * You won't need it on your project.
-   */
-  container: PropTypes.instanceOf(
-    typeof Element === "undefined" ? Object : Element
-  )
-};
+const mapStateToProps = (store) => ({
+  user: store.user
+});
 
-export default HomeAdmin;
+const mapDispatchToProps = (dispatch) => ({
+  dispatch
+});
+
+//export default HomeAdmin;
+export default compose(
+  connect(mapStateToProps, mapDispatchToProps)
+)(HomeAdmin);
+
+

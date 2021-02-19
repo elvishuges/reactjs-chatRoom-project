@@ -2,7 +2,6 @@ import React from "react";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
-import TextField from "@material-ui/core/TextField";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
 import Link from "@material-ui/core/Link";
@@ -10,18 +9,12 @@ import Grid from "@material-ui/core/Grid";
 import Box from "@material-ui/core/Box";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
-import { makeStyles } from "@material-ui/core/styles";
 import { withStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import CircularProgress from '@material-ui/core/CircularProgress';
-import { bindActionCreators } from "redux";
 
-import { login } from "../services/auth";
-import communUserService from "../services/communUser.service";
-import { useDispatch, useSelector } from "react-redux";
 import { connect } from "react-redux";
-import {compose} from "redux";
-import { Creators as AuthActions } from "../reducers/duck/reducer.auth";
+import { compose } from "redux";
 import { loginUser } from '../actions/auth.action'
 import TextInput from './components/utils/TextInput'
 
@@ -69,6 +62,7 @@ class SignIn extends React.Component {
     };
     this.handleChangeInput = this.handleChangeInput.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleChangeInput(e) {
@@ -76,27 +70,29 @@ class SignIn extends React.Component {
     this.setState({
       [name]: value,
     });
-  }  
+  }
 
-  register = () => {
-    this.props.history.push("/register");
+  handleRegister() {
+    //this.props.history.push("/homeUser");
   };
 
   handleSubmit = async (e) => {
     e.preventDefault();
     this.setState({ submitted: true });
-    const { email, password } = this.state;    
-    const resp = await this.props.dispatch(loginUser(email,password))
+    const { email, password } = this.state;
+    const resp = await this.props.dispatch(loginUser(email, password))
     try {
-      if(resp.status == 200){
+      if (resp.status == 200) {
         // direcionar para interface
+        console.log('...rota...resp');
+        this.props.history.push("/homeUser");
       }
-      else{
+      else {
         throw (resp)
       }
     } catch (error) {
-        alert("Erro ao logar")
-    } 
+      alert("Erro ao logar")
+    }
   }
 
   render() {
@@ -104,8 +100,8 @@ class SignIn extends React.Component {
     const { email, password, submitted } = this.state;
     const { isLoading } = this.props.user;
 
-    const txtButton = () =>{    
-       return isLoading ? <CircularProgress size={25} className={classes.fabProgress} /> :'Logar' 
+    const txtButton = () => {
+      return isLoading ? <CircularProgress size={25} className={classes.fabProgress} /> : 'Logar'
     }
 
     return (
@@ -119,24 +115,24 @@ class SignIn extends React.Component {
           <Typography component="h1" variant="h5">
             Sign in
           </Typography>{" "}
-          <form className={classes.form} noValidate>             
-            <TextInput 
-            label="Email"
-            name="email"
-            id="email"
-            value={this.state.email}
-            type="email"
-            onChange={this.handleChangeInput}
-            id="password"
-            autoComplete="email"
-            />       
-            <TextInput 
-            label="Password"
-            name="password"
-            value={this.state.password}
-            type="password"
-            onChange={this.handleChangeInput}
-            id="password"
+          <form className={classes.form} noValidate>
+            <TextInput
+              label="Email"
+              name="email"
+              id="email"
+              value={this.state.email}
+              type="email"
+              onChange={this.handleChangeInput}
+              id="password"
+              autoComplete="email"
+            />
+            <TextInput
+              label="Password"
+              name="password"
+              value={this.state.password}
+              type="password"
+              onChange={this.handleChangeInput}
+              id="password"
             />
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
@@ -145,7 +141,7 @@ class SignIn extends React.Component {
             <Button
               fullWidth
               variant="contained"
-              color="primary"              
+              color="primary"
               disabled={isLoading}
               className={classes.submit}
               onClick={this.handleSubmit}
@@ -159,14 +155,14 @@ class SignIn extends React.Component {
                 </Link>{" "}
               </Grid>{" "}
               <Grid item>
-                <Link href="#" variant="body2">
+                <Link to="/register" variant="body2">
                   {" "}
-                  {"Don't have an account? Sign Up"}{" "}
+                  {"Não posssue uma conta? Sign Up"}{" "}
                 </Link>{" "}
               </Grid>{" "}
             </Grid>{" "}
           </form>{" "}
-        </div>{" "}       
+        </div>{" "}
         <Box mt={8}>
           <Copyright />
         </Box>{" "}
@@ -178,19 +174,15 @@ const mapStateToProps = (store) => ({
   user: store.user
 });
 
-// const mapDispatchToProps = (dispatch) =>
-//   bindActionCreators({ ...AuthActions }, dispatch);
-
 const mapDispatchToProps = (dispatch) => ({
   dispatch
 });
 
 
 const SignStyled = withStyles(styles)(SignIn); // fiz isso para adicionar um store do reducer
-//export default connect(mapStateToProps, mapDispatchToProps)(SignStyled);
 
 export default compose(
-  connect(mapStateToProps, mapDispatchToProps)  
-  )(SignStyled);
-  
+  connect(mapStateToProps, mapDispatchToProps)
+)(SignStyled);
+
 

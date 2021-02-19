@@ -1,41 +1,45 @@
-import  {types}  from "../reducers/duck/reducer.auth";
+import { types } from "../reducers/duck/reducer.auth";
 import api from '../services/communUser.service'
 
 
-export const loginUser = (username,password) => {
-    console.log('*** dados login***', username,password);
+export const loginUser = (username, password) => {
 
-    return async  (dispatch) => {
-        console.log('****** entrou *****');
-
+    return async (dispatch) => {
         dispatch({
             type: types.submit_login
-        });       
-
-        const response = await api.login(username,password)
-            .then(rsp => {  
-                console.log('*rsp request*',rsp);  
-                if(rsp.status == 200){
-                    console.log("#entrou if#");
-                    
+        });
+        const response = await api.login(username, password)
+            .then(rsp => {
+                if (rsp.status == 200) {
                     dispatch({
                         type: types.sucess_login
-                    }); 
+                    });
                     return rsp;
                 }
                 dispatch({
                     type: types.failed_logout
                 })
-                
             })
             .catch(error => {
-                console.log('*catch*',error);                     
+                console.log('*catch*', error);
                 dispatch({
                     type: types.failed_login
-                }); 
+                });
                 return error;
             });
+        return response
+    }
+}
 
-            return response
+
+export const logoutUser = () => {
+    return async (dispatch) => {
+        dispatch({
+            type: types.submit_logout
+        });
+        dispatch({
+            type: types.sucess_logout
+        });
+
     }
 }
