@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import React, {Component} from "react";
+import React, { Component } from "react";
 
 
 import TextField from "@material-ui/core/TextField";
@@ -17,39 +17,39 @@ export default class TextInput extends Component {
 
     this.handleChangeInput = this.handleChangeInput.bind(this);
   }
-    componentDidMount() {
-        this.setState({
-            value: this.props.value
-        }
-);
+  componentDidMount() {
+    this.setState({
+      value: this.props.value
     }
+    );
+  }
 
-    handleChangeInput(e) {
-      const { name, value } = e.target;
-      this.setState({
-        [name]: value,
-      });
-    }    
+  handleChangeInput(e) {
+    const { name, value } = e.target;
+    this.setState({
+      [name]: value,
+    });
+  }
 
-    render() {
-        const {label,value,type,id,onChange,name,autoComplete} = this.props;
-        return (
-          <TextField
-          variant="outlined"
-          margin="normal"
-          required
-          value={value}
-          fullWidth
-          name={name}
-          label={label}
-          type={type}
-          id="password"
-          autoComplete={autoComplete}
-          onChange={onChange}
-          autoComplete="current-password"
-        />
-        );
-    }
+  render() {
+    const { label, value, type, id, onChange, name, autoComplete } = this.props;
+    return (
+      <TextField
+        variant="outlined"
+        margin="normal"
+        required
+        value={value}
+        fullWidth
+        name={name}
+        label={label}
+        type={type}
+        id="password"
+        autoComplete={autoComplete}
+        onChange={onChange}
+        autoComplete="current-password"
+      />
+    );
+  }
 }
 
 

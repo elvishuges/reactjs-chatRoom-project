@@ -33,7 +33,7 @@ export default function auth(state = initialState, action) {
                     isLoggedIn: true,
                     isLoading: false,
                     error: '',
-                    userRole: 'User'
+                    userRole: 'Commun'
                 }
             };
         case types.failed_login:

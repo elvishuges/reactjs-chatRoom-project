@@ -8,21 +8,20 @@ const IsNotAuthenticated = ({ component: Component, user, ...rest }) => (
         render={props => (
             !user.isLoggedIn
                 ? <Component {...props} />
-                : handleAcess(user, props, Component)
+                : handleRouteAcess(user, props)
 
         )}
     />
 );
-
-const handleAcess = (user, props, Component) => {
+function handleRouteAcess(user, props) {
     switch (user.userRole) {
         case 'Commun':
-            return <Redirect to="/homeUser" />
+            return <Redirect to={{ pathname: '/homeUser', state: { from: props.location } }} />
         case 'Admin':
-            return <Redirect to="/homeAdmin" />
-        default:
-            return <Component {...props} />
+            return <Redirect to={{ pathname: '/homeUser', state: { from: props.location } }} />
     }
-}
+};
+
+
 
 export default IsNotAuthenticated

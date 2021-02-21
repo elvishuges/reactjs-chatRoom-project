@@ -13,24 +13,12 @@ import { withStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import CircularProgress from '@material-ui/core/CircularProgress';
 
+import Copyright from "./components/Login/Copyright";
+
 import { connect } from "react-redux";
 import { compose } from "redux";
 import { loginUser } from '../actions/auth.action'
 import TextInput from './components/utils/TextInput'
-
-
-function Copyright() {
-  return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {" "}
-      {"Copyright © "}{" "}
-      <Link color="inherit" href="https://material-ui.com/">
-        Your Website{" "}
-      </Link>{" "}
-      {new Date().getFullYear()} {"."}{" "}
-    </Typography>
-  );
-}
 
 const styles = (theme) => ({
   paper: {
@@ -60,9 +48,14 @@ class SignIn extends React.Component {
       email: "eve.holt@reqres.in",
       password: "cityslicka",
     };
+
     this.handleChangeInput = this.handleChangeInput.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+
+    if (this.props.user.isLoggedIn) {
+      this.props.history.push('/homeAdmin');
+    }
   }
 
   handleChangeInput(e) {
@@ -73,7 +66,7 @@ class SignIn extends React.Component {
   }
 
   handleRegister() {
-    //this.props.history.push("/homeUser");
+    this.props.history.push("/register");
   };
 
   handleSubmit = async (e) => {
@@ -85,7 +78,6 @@ class SignIn extends React.Component {
       if (resp.status == 200) {
         // direcionar para interface
         console.log('...rota...resp');
-        this.props.history.push("/homeUser");
       }
       else {
         throw (resp)
@@ -120,7 +112,7 @@ class SignIn extends React.Component {
               label="Email"
               name="email"
               id="email"
-              value={this.state.email}
+              value={email}
               type="email"
               onChange={this.handleChangeInput}
               id="password"
@@ -129,7 +121,7 @@ class SignIn extends React.Component {
             <TextInput
               label="Password"
               name="password"
-              value={this.state.password}
+              value={password}
               type="password"
               onChange={this.handleChangeInput}
               id="password"
@@ -149,22 +141,17 @@ class SignIn extends React.Component {
               {txtButton()}
             </Button>
             <Grid container>
-              <Grid item xs>
-                <Link href="#" variant="body2">
-                  Forgot password ?
-                </Link>{" "}
-              </Grid>{" "}
               <Grid item>
                 <Link to="/register" variant="body2">
                   {" "}
-                  {"Não posssue uma conta? Sign Up"}{" "}
+                  {"Não posssue uma conta? Cadastre-se"}{" "}
                 </Link>{" "}
               </Grid>{" "}
             </Grid>{" "}
           </form>{" "}
         </div>{" "}
         <Box mt={8}>
-          <Copyright />
+          <Copyright websiteTitle="SistemasHuges" />
         </Box>{" "}
       </Container>
     );

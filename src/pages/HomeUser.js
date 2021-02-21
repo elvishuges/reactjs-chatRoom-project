@@ -1,82 +1,80 @@
 import React from 'react';
-import Link from '@material-ui/core/Link';
-import Typography from '@material-ui/core/Typography';
+
 import { withStyles } from '@material-ui/core/styles';
-import CardBarbearia from './components/CardBarbearia/Card'
+import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
 
-import { useDispatch, useSelector } from 'react-redux';
-
-
-function Copyright() {
-  return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {'Copyright © '}
-      <Link color="inherit" href="https://material-ui.com/">
-        Your Website
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
+import AppBarUser from './components/HomeUser/AppBarUser/AppBarUser'
+import RoomCard from "./components/HomeUser/RoomCard/RoomCard";
+import ChipUsers from "./components/HomeUser/ChipUsers/ChipUsers";
 
 const styles = theme => ({
-  paper: {
-    marginTop: theme.spacing(8),
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
+  root: {
+    flexGrow: 1,
   },
-  avatar: {
-    margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main,
+  content: {
+    margin: theme.spacing(3, 2, 2, 3),
+
   },
-  form: {
-    width: '100%', // Fix IE 11 issue.
-    marginTop: theme.spacing(1),
+  chipContent: {
+    margin: theme.spacing(3, 2, 2, 3),
+    maxHeight: 100,
+    overflow: 'auto'
   },
-  submit: {
-    margin: theme.spacing(3, 0, 2),
-  },
+
 });
 
 class HomeUser extends React.Component {
 
-	constructor(props) {
-		super(props);
-	
-		this.state = {
-            username: '',
-            password: '',
-            submitted: false
-		};
-		this.handleChange = this.handleChange.bind(this);
-		this.handleSubmit = this.handleSubmit.bind(this);
-		//this.dispatch = useDispatch();
-	  }
+  constructor(props) {
+    super(props);
 
-	handleChange(e) {
-		
-	}
-	
-	register = () =>{
-		
-	}
+    this.state = {
+      username: '',
+      password: '',
+      submitted: false
+    };
+    //this.dispatch = useDispatch();
+  }
 
-	handleSubmit(e) {
-        
-    }
+  handleChange(e) {
 
-  render(){	
-  const { classes } = this.props;
-  const { username, password, submitted } = this.state;
-  return (
-    <div>
-		<CardBarbearia/>
-	</div>
-  )};
+  }
+
+  render() {
+    const { classes } = this.props;
+    return (
+      <div  >
+        <AppBarUser title="Início" ></AppBarUser>
+
+        <div className={classes.content} >
+          <Grid container spacing={3}>
+            <Grid item xs={12} sm={6} md={4} >
+              <RoomCard title="titulo room 1" message="Message room 1" >xs=12</RoomCard>
+            </Grid>
+            <Grid item xs={12} sm={6} md={4} >
+              <RoomCard title="titulo room 2" message="Message room 2" >xs=12</RoomCard>
+            </Grid>
+            <Grid item xs={12} sm={6} md={4} >
+              <RoomCard title="titulo room 3" message="Message room 3" >xs=12</RoomCard>
+            </Grid>
+            <Grid item xs={12} sm={6} md={4} >
+              <RoomCard title="titulo room 1" message="Message room 1" >xs=12</RoomCard>
+            </Grid>
+          </Grid>
+        </div>
+        <div className={classes.chipContent} >
+          <Typography variant="h5" gutterBottom>
+            Usuários Logados
+         </Typography>
+          <ChipUsers></ChipUsers>
+        </div>
+
+      </div>
+    )
+  };
 }
 
 const HomeUserStyled = withStyles(styles)(HomeUser) // fiz isso para adicionar um store do reducer
-  
+
 export default HomeUserStyled;
