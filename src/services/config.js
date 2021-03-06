@@ -2,7 +2,7 @@
 /* eslint-disable */
 var axios = require('axios');
 
-export const baseURL = 'https://reqres.in/api/'
+export const baseURL = 'http://localhost:4000/'
 
 export const api = axios.create({
     baseURL: baseURL,

@@ -10,13 +10,17 @@ export const types = {
 const initialState = {
     user: {
         isLoggedIn: false,
-        error: null,
-        isLoading: false,
+        username: null,
+        email: false,
+        token: '',
         userRole: null,
+        error: false,
+        id: ''
     }
 };
 
 export default function auth(state = initialState, action) {
+    console.log('action', action);
 
     switch (action.type) {
         case types.submit_login:
@@ -24,7 +28,7 @@ export default function auth(state = initialState, action) {
                 user: {
                     isLoggedIn: false,
                     isLoading: true,
-                    error: '',
+                    error: false,
                 }
             }
         case types.sucess_login:
@@ -32,8 +36,11 @@ export default function auth(state = initialState, action) {
                 user: {
                     isLoggedIn: true,
                     isLoading: false,
-                    error: '',
-                    userRole: 'Commun'
+                    username: action.payload.username,
+                    email: action.payload.email,
+                    error: false,
+                    id: action.payload.id,
+                    userRole: action.payload.userRole
                 }
             };
         case types.failed_login:
@@ -41,7 +48,7 @@ export default function auth(state = initialState, action) {
                 user: {
                     isLoggedIn: false,
                     isLoading: false,
-                    error: action.payload,
+                    error: true,
                 }
             };
         case types.submit_logout:

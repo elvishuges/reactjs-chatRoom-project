@@ -6,6 +6,7 @@ import { Switch, Route } from "react-router-dom";
 
 import DrawerAdmin from "./components/HomeAdmin/DrawerAdmin/DrawerAdmin";
 import AppBarAdmin from "./components/HomeAdmin/AppBarAdmin/AppBarAdmin";
+import Salas from "./components/HomeAdmin/Salas/Salas";
 
 import React from "react";
 import { connect } from "react-redux";
@@ -87,10 +88,9 @@ function HomeAdmin(props) {
         </Hidden>
       </nav>
       <main className={classes.content}>
-
         <Switch>
-          <Route path="/homeAdmin" render={() => <div>Iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiindex</div>} />
-          <Route path="/salas" render={() => <div>Saaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaalas</div>} />
+          <Route path="/homeAdmin" render={() => <Salas></Salas>} />
+          <Route path="/salas" render={() => <Salas></Salas>} />
         </Switch>
       </main>
       {/* </BrowserRouter> */}

@@ -12,7 +12,8 @@ export const loginUser = (username, password) => {
             .then(rsp => {
                 if (rsp.status == 200) {
                     dispatch({
-                        type: types.sucess_login
+                        type: types.sucess_login,
+                        payload: rsp.data.user
                     });
                     return rsp;
                 }

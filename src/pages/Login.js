@@ -45,8 +45,8 @@ class SignIn extends React.Component {
     super(props);
 
     this.state = {
-      email: "eve.holt@reqres.in",
-      password: "cityslicka",
+      email: "jaque@hotmail.com",
+      password: "123",
     };
 
     this.handleChangeInput = this.handleChangeInput.bind(this);

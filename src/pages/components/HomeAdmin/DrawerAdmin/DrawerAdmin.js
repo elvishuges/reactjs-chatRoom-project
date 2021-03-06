@@ -39,6 +39,14 @@ const useStyles = makeStyles(theme => ({
             display: "none"
         }
     },
+    drawerHeader: {
+        display: "flex",
+        alignItems: "center",
+        padding: theme.spacing(0, 1),
+        ...theme.mixins.toolbar,
+        justifyContent: "flex-end",
+        background: '#2E3B55'
+    },
     toolbar: theme.mixins.toolbar,
     drawerPaper: {
         width: drawerWidth
@@ -56,11 +64,12 @@ export default function DrawerAdmin(props) {
     const classes = useStyles();
     const drawer = (
         <div>
-            <div className={classes.toolbar} />
+            <div className={classes.drawerHeader}>
+            </div>
             <Divider />
             <List>
                 {listItem.map((text, index) => (
-                    <ListItem key={text.path} component={Link} to={text.path}>
+                    <ListItem button key={text.path} component={Link} to={text.path}>
                         <ListItemIcon>
                             {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
                         </ListItemIcon>
