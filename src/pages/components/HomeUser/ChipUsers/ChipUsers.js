@@ -29,11 +29,11 @@ export default function Chips(props) {
 
     return (
         <div className={classes.root}>
-            {props.userList.map((user) => {
+            {props.logedSocketList.map((socket) => {
                 return <Chip
-                    key={user.id}
+                    key={socket.user.id}
                     icon={<FaceIcon />}
-                    label={user.email}
+                    label={socket.user.email}
                     clickable
                     color="primary"
                     onDelete={handleDelete}

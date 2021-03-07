@@ -10,13 +10,9 @@ import RoomCard from "./components/RoomCard/RoomCard";
 import ChipUsers from "./components/HomeUser/ChipUsers/ChipUsers";
 
 import { connect } from "react-redux";
+
 import { compose } from "redux";
-
-import { loginUser } from '../actions/auth.action';
-import { baseURL } from "./../services/config";
-
 import socket from './../services/socket'
-
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -39,26 +35,42 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-
 function HomeUser(props) {
 
+  const classes = useStyles();
   const user = {
     username: props.user.username,
     email: props.user.email,
     id: props.user.id
   }
 
-  const [userListLoged, setUserListLoged] = useState([]);
-  const classes = useStyles();
+  const [logedSocketList, setUserListLoged] = useState([]);
+
+  const handleNewLogedSocket = socket => {
+    setUserListLoged(oldArray => [...oldArray, socket.data]);
+  };
+
+  const handleRemoveLogedSocket = socket => {
+    console.log('handleRemoveLogedSocket', socket);
+  };
+
+
   useEffect(() => {
-    socket.emit('inInitialPage', { user: user });
-    socket.on("logedUserList", data => {
-      console.log('logedUserList', data);
+    socket.emit('onInitialPage', { user: user });
+
+    socket.on("logedSocketList", data => {
+      console.log('logedSocketList', data);
       setUserListLoged(data);
     })
-    socket.on("newUserLoged", data => {
-      console.log('newUserLoged', data);
+
+    socket.on("newLogedSocket", data => {
+      handleNewLogedSocket(data);
     })
+
+    socket.on("removeLogedSocket", data => {
+      handleRemoveLogedSocket(data);
+    })
+
   }, []);
 
   return (
@@ -84,7 +96,7 @@ function HomeUser(props) {
       <div className={classes.chipContent}  > <Typography variant="h5" gutterBottom>
         Usuários Logados</Typography>  </div>
       <div className={classes.chipUsers}  >
-        <ChipUsers userList={userListLoged} ></ChipUsers>
+        <ChipUsers logedSocketList={logedSocketList} ></ChipUsers>
       </div>
 
     </div>
