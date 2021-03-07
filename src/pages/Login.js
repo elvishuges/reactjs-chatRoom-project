@@ -45,7 +45,7 @@ class SignIn extends React.Component {
     super(props);
 
     this.state = {
-      email: "jaque@hotmail.com",
+      email: "biri@hotmail.com",
       password: "123",
     };
 
@@ -73,27 +73,19 @@ class SignIn extends React.Component {
     e.preventDefault();
     this.setState({ submitted: true });
     const { email, password } = this.state;
-    const resp = await this.props.dispatch(loginUser(email, password))
-    try {
-      if (resp.status == 200) {
-        // direcionar para interface
-        console.log('...rota...resp');
-      }
-      else {
-        throw (resp)
-      }
-    } catch (error) {
-      alert("Erro ao logar")
+    if (email && password) {
+      const resp = await this.props.dispatch(loginUser(email, password))
+
     }
   }
 
   render() {
     const { classes } = this.props;
-    const { email, password, submitted } = this.state;
-    const { isLoading } = this.props.user;
+    const { email, password } = this.state;
+    const { user } = this.props;
 
     const txtButton = () => {
-      return isLoading ? <CircularProgress size={25} className={classes.fabProgress} /> : 'Logar'
+      return user.isLoadingLogin ? <CircularProgress size={25} className={classes.fabProgress} /> : 'Logar'
     }
 
     return (
@@ -130,11 +122,12 @@ class SignIn extends React.Component {
               control={<Checkbox value="remember" color="primary" />}
               label="Remember me"
             />
+            {user.errorLogin && (<div>{user.errorMessage}</div>)}
             <Button
               fullWidth
               variant="contained"
               color="primary"
-              disabled={isLoading}
+              disabled={user.isLoadingLogin}
               className={classes.submit}
               onClick={this.handleSubmit}
             >
@@ -158,7 +151,7 @@ class SignIn extends React.Component {
   }
 }
 const mapStateToProps = (store) => ({
-  user: store.user
+  user: store.user,
 });
 
 const mapDispatchToProps = (dispatch) => ({

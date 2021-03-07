@@ -3,6 +3,7 @@ import { Route, Redirect } from "react-router-dom";
 
 
 const IsNotAuthenticated = ({ component: Component, user, ...rest }) => (
+
     <Route
         {...rest}
         render={props => (
@@ -14,11 +15,14 @@ const IsNotAuthenticated = ({ component: Component, user, ...rest }) => (
     />
 );
 function handleRouteAcess(user, props) {
-    switch (user.userRole) {
-        case 'Commun':
+    console.log('User ifNotAuth', user);
+    switch (user.role.name) {
+        case 'Common':
             return <Redirect to={{ pathname: '/homeUser', state: { from: props.location } }} />
         case 'Admin':
-            return <Redirect to={{ pathname: '/homeUser', state: { from: props.location } }} />
+            return <Redirect to={{ pathname: '/homeAdmin', state: { from: props.location } }} />
+        default:
+            return <Redirect to={{ pathname: '/pageNotFound', state: { from: props.location } }} />
     }
 };
 

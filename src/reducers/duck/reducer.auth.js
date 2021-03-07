@@ -1,70 +1,92 @@
 export const types = {
     submit_login: "auth/submit_login",
     sucess_login: "auth/sucess_login",
-    failed_login: "auth/sucess_login",
+    failed_login: "auth/failed_login",
     submit_logout: "auth/submit_logout",
     sucess_logout: "auth/sucess_logout",
-    failed_logout: "auth/failed_logout",
 };
 
 const initialState = {
     user: {
-        isLoggedIn: false,
         username: null,
-        email: false,
-        token: '',
-        userRole: null,
-        error: false,
-        id: ''
-    }
+        email: null,
+        role: null,
+        isLoggedIn: false,
+        isLoadingLogin: false,
+        errorLogin: false,
+        errorMessage: "",
+        id: "",
+    },
 };
 
 export default function auth(state = initialState, action) {
-    console.log('action', action);
+    console.log('action', action, state);
 
     switch (action.type) {
         case types.submit_login:
             return {
                 user: {
+                    username: null,
+                    email: null,
+                    role: null,
                     isLoggedIn: false,
-                    isLoading: true,
-                    error: false,
-                }
+                    isLoadingLogin: true,
+                    errorLogin: false,
+                    errorMessage: "",
+                    id: "",
+                },
             }
         case types.sucess_login:
             return {
                 user: {
-                    isLoggedIn: true,
-                    isLoading: false,
                     username: action.payload.username,
                     email: action.payload.email,
-                    error: false,
-                    id: action.payload.id,
-                    userRole: action.payload.userRole
-                }
+                    role: action.payload.role,
+                    isLoggedIn: true,
+                    isLoadingLogin: false,
+                    errorLogin: false,
+                    errorMessage: "",
+                    id: action.payload._id,
+                },
             };
         case types.failed_login:
             return {
                 user: {
+                    username: null,
+                    email: null,
+                    role: null,
                     isLoggedIn: false,
-                    isLoading: false,
-                    error: true,
-                }
+                    isLoadingLogin: false,
+                    errorLogin: false,
+                    errorMessage: action.payload,
+                    id: "",
+                },
             };
         case types.submit_logout:
             return {
                 user: {
-                    isLoggedIn: true,
-                    isLoading: true,
-                }
+                    username: null,
+                    email: null,
+                    role: null,
+                    isLoggedIn: false,
+                    isLoadingLogin: false,
+                    errorLogin: false,
+                    errorMessage: "",
+                    id: "",
+                },
             };
         case types.sucess_logout:
             return {
                 user: {
+                    username: null,
+                    email: null,
+                    role: null,
                     isLoggedIn: false,
-                    isLoading: false,
-                    error: '',
-                }
+                    isLoadingLogin: false,
+                    errorLogin: false,
+                    errorMessage: "",
+                    id: "",
+                },
             };
 
         default:

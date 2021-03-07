@@ -30,12 +30,13 @@ class Routes extends Component {
         sidebar: () => <HomeAdmin />,
       },
     ];
+    console.log('Userrrrrr', this.props.user);
     return (
       <BrowserRouter>
         <Switch >
           <IfNotAuthenticated path="/register" user={this.props.user} component={Register}></IfNotAuthenticated>
           <IfNotAuthenticated path="/login" user={this.props.user} component={Login}></IfNotAuthenticated>
-          <PrivateRoute roles={["Commun"]} path="/homeUser" user={this.props.user} component={HomeUser}></PrivateRoute>
+          <PrivateRoute roles={["Common"]} path="/homeUser" user={this.props.user} component={HomeUser}></PrivateRoute>
           <Route path="/homeAdmin" component={HomeAdmin} user={this.props.user}></Route>
           <Route path="*" component={PageNotFound} />
         </Switch>

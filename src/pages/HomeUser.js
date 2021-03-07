@@ -25,20 +25,40 @@ const useStyles = makeStyles((theme) => ({
   content: {
     margin: theme.spacing(3, 2, 2, 3),
   },
+
   chipContent: {
     margin: theme.spacing(3, 2, 2, 3),
+    maxHeight: 100,
+    overflow: 'auto'
+  },
+  chipUsers: {
     maxHeight: 100,
     overflow: 'auto'
   },
 
 }));
 
+
+
 function HomeUser(props) {
 
+  const user = {
+    username: props.user.username,
+    email: props.user.email,
+    id: props.user.id
+  }
+
+  const [userListLoged, setUserListLoged] = useState([]);
   const classes = useStyles();
   useEffect(() => {
-    //const socket = io(baseURL, { transports: ['websocket'] });
-    socket.emit('inInitialPage', props.user.id);
+    socket.emit('inInitialPage', { user: user });
+    socket.on("logedUserList", data => {
+      console.log('logedUserList', data);
+      setUserListLoged(data);
+    })
+    socket.on("newUserLoged", data => {
+      console.log('newUserLoged', data);
+    })
   }, []);
 
   return (
@@ -61,11 +81,10 @@ function HomeUser(props) {
           </Grid>
         </Grid>
       </div>
-      <div className={classes.chipContent} >
-        <Typography variant="h5" gutterBottom>
-          Usuários Logados
-         </Typography>
-        <ChipUsers></ChipUsers>
+      <div className={classes.chipContent}  > <Typography variant="h5" gutterBottom>
+        Usuários Logados</Typography>  </div>
+      <div className={classes.chipUsers}  >
+        <ChipUsers userList={userListLoged} ></ChipUsers>
       </div>
 
     </div>

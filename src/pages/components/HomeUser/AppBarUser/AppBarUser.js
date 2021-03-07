@@ -43,7 +43,6 @@ function MenuAppBar(props) {
     };
 
     const handleLogout = () => {
-        console.log('logout');
         props.dispatch(logoutUser())
         history.push('/login');
     };

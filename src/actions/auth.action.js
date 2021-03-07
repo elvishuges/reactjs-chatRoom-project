@@ -1,6 +1,7 @@
 import { types } from "../reducers/duck/reducer.auth";
+import React from "react";
 import api from '../services/communUser.service'
-
+import { Redirect } from "react-router";
 
 export const loginUser = (username, password) => {
 
@@ -10,21 +11,18 @@ export const loginUser = (username, password) => {
         });
         const response = await api.login(username, password)
             .then(rsp => {
-                if (rsp.status == 200) {
-                    dispatch({
-                        type: types.sucess_login,
-                        payload: rsp.data.user
-                    });
-                    return rsp;
-                }
+                console.log('*RSP OK*', rsp);
                 dispatch({
-                    type: types.failed_logout
+                    type: types.sucess_login,
+                    payload: rsp.data.user
                 })
+                return <Redirect to="/" />
             })
             .catch(error => {
-                console.log('*catch*', error);
+                console.log('*RSP catch !!!!!!!!!*', error);
                 dispatch({
-                    type: types.failed_login
+                    type: types.failed_login,
+                    payload: error.response.data.error
                 });
                 return error;
             });
