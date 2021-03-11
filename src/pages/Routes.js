@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
 import PrivateRoute from "./components/Routes/PrivateRoute";
 import IfNotAuthenticated from "./components/Routes/IfNotAuthenticated";
 import { connect } from "react-redux";
@@ -10,8 +10,6 @@ import HomeUser from "./HomeUser";
 import Register from "./Register";
 import HomeAdmin from "./HomeAdmin";
 import PageNotFound from "./components/PageNotFound";
-import Room from "./Room";
-import Index from "./components/HomeUser/Index/Index";
 class Routes extends Component {
   componentDidMount() {
     console.log("==== Routes mounted! ====");
@@ -33,6 +31,10 @@ class Routes extends Component {
         path: "/user/index",
         sidebar: () => <HomeUser />,
       },
+      {
+        path: "/user/sala/:roomTitle",
+        sidebar: () => <HomeUser />,
+      },
     ];
     console.log("Userrrrrr", this.props.user);
     return (
@@ -48,18 +50,14 @@ class Routes extends Component {
             user={this.props.user}
             component={Login}
           ></IfNotAuthenticated>
-          <PrivateRoute
-            roles={["Common"]}
-            path="/room"
-            user={this.props.user}
-            component={Room}
-          ></PrivateRoute>
           {homeUserRoutes.map((route, index) => (
-            <Route
+            <PrivateRoute
               key={index}
+              roles={["Common"]}
               path={route.path}
+              user={this.props.user}
               children={<route.sidebar />}
-            ></Route>
+            ></PrivateRoute>
           ))}
           {homeAdminRoutes.map((route, index) => (
             <Route

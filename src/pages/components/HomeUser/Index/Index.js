@@ -1,10 +1,7 @@
 import React from "react";
 
-import { withStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
-import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
-import ChipUsers from "./../ChipUsers/ChipUsers";
 
 import RoomCard from "./../../RoomCard/RoomCard";
 
@@ -28,41 +25,22 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Index(props) {
-  const { logedSocketList } = props;
-  const classes = useStyles();
   return (
     <div>
       <Grid container spacing={3}>
         <Grid item xs={12} sm={6} md={4}>
-          <RoomCard title="titulo room 1" message="user room 1">
-            xs=12
-          </RoomCard>
+          <RoomCard title="titulo room 1" message="user room 1" />
         </Grid>
         <Grid item xs={12} sm={6} md={4}>
-          <RoomCard title="titulo room 2" message="user room 2">
-            xs=12
-          </RoomCard>
+          <RoomCard title="titulo room 2" message="user room 2" />
         </Grid>
         <Grid item xs={12} sm={6} md={4}>
-          <RoomCard title="titulo room 3" message="user room 3">
-            xs=12
-          </RoomCard>
+          <RoomCard title="titulo room 3" message="user room 3" />
         </Grid>
         <Grid item xs={12} sm={6} md={4}>
-          <RoomCard title="titulo room 1" message="user room 1">
-            xs=12
-          </RoomCard>
+          <RoomCard title="titulo room 1" message="user room 1" />
         </Grid>
       </Grid>
-      <div className={classes.chipContent}>
-        {" "}
-        <Typography variant="h5" gutterBottom>
-          Usuários Logados
-        </Typography>
-      </div>
-      <div className={classes.chipUsers}>
-        <ChipUsers logedSocketList={logedSocketList}></ChipUsers>
-      </div>
     </div>
   );
 }

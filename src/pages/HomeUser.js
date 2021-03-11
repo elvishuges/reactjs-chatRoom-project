@@ -1,15 +1,14 @@
-import React, { useState, useEffect } from "react";
-import { Switch, Route, BrowserRouter } from "react-router-dom";
+import React from "react";
+import { Switch, Route } from "react-router-dom";
 
 import { makeStyles } from "@material-ui/core/styles";
 
 import AppBarUser from "./components/HomeUser/AppBarUser/AppBarUser";
 import Index from "./components/HomeUser/Index/Index";
-import Room from "./Room";
+import Sala from "./components/HomeUser/Sala/Sala";
 
 import { connect } from "react-redux";
 import { compose } from "redux";
-import socket from "./../services/socket";
 
 const useStyles = makeStyles((theme) => ({
   content: {
@@ -19,48 +18,14 @@ const useStyles = makeStyles((theme) => ({
 
 function HomeUser(props) {
   const classes = useStyles();
-  const user = {
-    username: props.user.username,
-    email: props.user.email,
-    id: props.user.id,
-  };
-
-  const [logedSocketList, setUserListLoged] = useState([]);
-
-  const handleNewLogedSocket = (socket) => {
-    setUserListLoged((oldArray) => [...oldArray, socket.data]);
-  };
-
-  const handleRemoveLogedSocket = (socket) => {
-    console.log("handleRemoveLogedSocket", socket);
-  };
-
-  useEffect(() => {
-    socket.emit("onInitialPage", { user: user });
-
-    socket.on("logedSocketList", (data) => {
-      setUserListLoged(data);
-    });
-
-    socket.on("newLogedSocket", (data) => {
-      handleNewLogedSocket(data);
-    });
-
-    socket.on("removeLogedSocket", (data) => {
-      handleRemoveLogedSocket(data);
-    });
-  }, []);
 
   return (
     <div>
       <AppBarUser title="Início"></AppBarUser>
       <div className={classes.content}>
         <Switch>
-          <Route
-            path="/user/index"
-            render={() => <Index logedSocketList={logedSocketList}></Index>}
-          />
-          <Route exact path="/sala" render={() => <Room />} />
+          <Route path="/user/index" render={() => <Index></Index>} />
+          <Route exact path="/user/sala/:roomTitle" render={() => <Sala />} />
         </Switch>
       </div>
     </div>

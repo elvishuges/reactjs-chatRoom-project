@@ -1,12 +1,8 @@
-import PropTypes from "prop-types";
 import React, { Component } from "react";
-
 
 import TextField from "@material-ui/core/TextField";
 
-
 export default class TextInput extends Component {
-
   constructor(props) {
     super(props);
 
@@ -19,9 +15,8 @@ export default class TextInput extends Component {
   }
   componentDidMount() {
     this.setState({
-      value: this.props.value
-    }
-    );
+      value: this.props.value,
+    });
   }
 
   handleChangeInput(e) {
@@ -32,7 +27,7 @@ export default class TextInput extends Component {
   }
 
   render() {
-    const { label, value, type, id, onChange, name, autoComplete } = this.props;
+    const { label, value, type, onChange, name, autoComplete } = this.props;
     return (
       <TextField
         variant="outlined"
@@ -51,6 +46,3 @@ export default class TextInput extends Component {
     );
   }
 }
-
-
-
