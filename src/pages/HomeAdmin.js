@@ -1,4 +1,3 @@
-
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Hidden from "@material-ui/core/Hidden";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
@@ -11,18 +10,19 @@ import Salas from "./components/HomeAdmin/Salas/Salas";
 import React from "react";
 import { connect } from "react-redux";
 import { compose } from "redux";
-import { logoutUser } from '../actions/auth.action'
+import { logoutUser } from "../actions/auth.action";
 import { useHistory } from "react-router";
+import Index from "./components/HomeAdmin/Index/Index";
 
 const drawerWidth = 200;
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   root: {
-    display: "flex"
+    display: "flex",
   },
 
   drawer: {
-    [theme.breakpoints.up('sm')]: {
+    [theme.breakpoints.up("sm")]: {
       width: drawerWidth,
       flexShrink: 0,
     },
@@ -30,12 +30,11 @@ const useStyles = makeStyles(theme => ({
 
   toolbar: theme.mixins.toolbar,
   drawerPaper: {
-    width: drawerWidth
+    width: drawerWidth,
   },
   content: {
-    flexGrow: 0,
-    padding: theme.spacing(2)
-  }
+    margin: theme.spacing(6, 1, 1, 1),
+  },
 }));
 
 function HomeAdmin(props) {
@@ -50,38 +49,44 @@ function HomeAdmin(props) {
   };
 
   const handleLogout = () => {
-    props.dispatch(logoutUser())
-    history.push('/login');
-  }
+    props.dispatch(logoutUser());
+    history.push("/login");
+  };
 
   return (
-
     <div className={classes.root}>
       <DrawerAdmin handleLogout={handleLogout} />
       <CssBaseline />
-      <AppBarAdmin handleDrawerToggle={handleDrawerToggle} title="My Admin" position="fixed"></AppBarAdmin>
+      <AppBarAdmin
+        handleDrawerToggle={handleDrawerToggle}
+        title="My Admin"
+        position="fixed"
+      ></AppBarAdmin>
       {/* <BrowserRouter> */}
       <nav className={classes.drawer} aria-label="mailbox folders">
         {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
         <Hidden smUp implementation="css">
-          <DrawerAdmin container={container}
+          <DrawerAdmin
+            container={container}
             variant="temporary"
             anchor={theme.direction === "rtl" ? "right" : "left"}
             open={mobileOpen}
             onClose={handleDrawerToggle}
             classes={{
-              paper: classes.drawerPaper
+              paper: classes.drawerPaper,
             }}
             ModalProps={{
-              keepMounted: true // Better open performance on mobile.
+              keepMounted: true, // Better open performance on mobile.
             }}
             handleLogout={handleLogout}
           />
         </Hidden>
         <Hidden xsDown implementation="css">
-          <DrawerAdmin variant="permanent"
-            open classes={{
-              paper: classes.drawerPaper
+          <DrawerAdmin
+            variant="permanent"
+            open
+            classes={{
+              paper: classes.drawerPaper,
             }}
             handleLogout={handleLogout}
           />
@@ -89,8 +94,8 @@ function HomeAdmin(props) {
       </nav>
       <main className={classes.content}>
         <Switch>
-          <Route path="/homeAdmin" render={() => <Salas/>} />
-          <Route path="/salas" render={() => <Salas/>} />
+          <Route path="/admin/index" render={() => <Index></Index>} />
+          <Route path="/salas" render={() => <Salas />} />
         </Switch>
       </main>
       {/* </BrowserRouter> */}
@@ -99,16 +104,12 @@ function HomeAdmin(props) {
 }
 
 const mapStateToProps = (store) => ({
-  user: store.user
+  user: store.user,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  dispatch
+  dispatch,
 });
 
 //export default HomeAdmin;
-export default compose(
-  connect(mapStateToProps, mapDispatchToProps)
-)(HomeAdmin);
-
-
+export default compose(connect(mapStateToProps, mapDispatchToProps))(HomeAdmin);

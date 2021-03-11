@@ -11,14 +11,14 @@ import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import { withStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
-import CircularProgress from '@material-ui/core/CircularProgress';
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 import Copyright from "./components/Login/Copyright";
 
 import { connect } from "react-redux";
 import { compose } from "redux";
-import { loginUser } from '../actions/auth.action'
-import TextInput from './components/utils/TextInput'
+import { loginUser } from "../actions/auth.action";
+import TextInput from "./components/utils/TextInput";
 
 const styles = (theme) => ({
   paper: {
@@ -54,7 +54,7 @@ class SignIn extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
 
     if (this.props.user.isLoggedIn) {
-      this.props.history.push('/homeAdmin');
+      this.props.history.push("/user/index");
     }
   }
 
@@ -67,17 +67,16 @@ class SignIn extends React.Component {
 
   handleRegister() {
     this.props.history.push("/register");
-  };
+  }
 
   handleSubmit = async (e) => {
     e.preventDefault();
     this.setState({ submitted: true });
     const { email, password } = this.state;
     if (email && password) {
-      const resp = await this.props.dispatch(loginUser(email, password))
-
+      const resp = await this.props.dispatch(loginUser(email, password));
     }
-  }
+  };
 
   render() {
     const { classes } = this.props;
@@ -85,8 +84,12 @@ class SignIn extends React.Component {
     const { user } = this.props;
 
     const txtButton = () => {
-      return user.isLoadingLogin ? <CircularProgress size={25} className={classes.fabProgress} /> : 'Logar'
-    }
+      return user.isLoadingLogin ? (
+        <CircularProgress size={25} className={classes.fabProgress} />
+      ) : (
+        "Logar"
+      );
+    };
 
     return (
       <Container component="main" maxWidth="xs">
@@ -122,7 +125,7 @@ class SignIn extends React.Component {
               control={<Checkbox value="remember" color="primary" />}
               label="Remember me"
             />
-            {user.errorLogin && (<div>{user.errorMessage}</div>)}
+            {user.errorLogin && <div>{user.errorMessage}</div>}
             <Button
               fullWidth
               variant="contained"
@@ -155,14 +158,11 @@ const mapStateToProps = (store) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  dispatch
+  dispatch,
 });
-
 
 const SignStyled = withStyles(styles)(SignIn); // fiz isso para adicionar um store do reducer
 
-export default compose(
-  connect(mapStateToProps, mapDispatchToProps)
-)(SignStyled);
-
-
+export default compose(connect(mapStateToProps, mapDispatchToProps))(
+  SignStyled
+);
