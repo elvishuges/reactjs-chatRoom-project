@@ -89,8 +89,8 @@ function HomeAdmin(props) {
       </nav>
       <main className={classes.content}>
         <Switch>
-          <Route path="/homeAdmin" render={() => <Salas></Salas>} />
-          <Route path="/salas" render={() => <Salas></Salas>} />
+          <Route path="/homeAdmin" render={() => <Salas/>} />
+          <Route path="/salas" render={() => <Salas/>} />
         </Switch>
       </main>
       {/* </BrowserRouter> */}

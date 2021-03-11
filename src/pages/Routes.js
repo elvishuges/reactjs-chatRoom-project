@@ -10,8 +10,7 @@ import HomeUser from "./HomeUser";
 import Register from "./Register";
 import HomeAdmin from "./HomeAdmin"
 import PageNotFound from "./components/PageNotFound";
-import Dashboard from "./components/HomeAdmin/Dashboard/Dashboard";
-import Lojas from "./components/HomeAdmin/Salas/Salas";
+import Room from "./Room";
 class Routes extends Component {
 
   componentDidMount() {
@@ -36,8 +35,8 @@ class Routes extends Component {
         <Switch >
           <IfNotAuthenticated path="/register" user={this.props.user} component={Register}></IfNotAuthenticated>
           <IfNotAuthenticated path="/login" user={this.props.user} component={Login}></IfNotAuthenticated>
+          <PrivateRoute roles={["Common"]} path="/room" user={this.props.user} component={Room}></PrivateRoute>
           <PrivateRoute roles={["Common"]} path="/homeUser" user={this.props.user} component={HomeUser}></PrivateRoute>
-          <Route path="/homeAdmin" component={HomeAdmin} user={this.props.user}></Route>
           <Route path="*" component={PageNotFound} />
         </Switch>
         <Switch>

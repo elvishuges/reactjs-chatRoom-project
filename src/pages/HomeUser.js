@@ -76,29 +76,27 @@ function HomeUser(props) {
   return (
     <div  >
       <AppBarUser title="Início" ></AppBarUser>
-
-      <div className={classes.content} >
-        <Grid container spacing={3}>
-          <Grid item xs={12} sm={6} md={4} >
-            <RoomCard title="titulo room 1" message="Message room 1" >xs=12</RoomCard>
+        <div className={classes.content} >
+          <Grid container spacing={3}>
+            <Grid item xs={12} sm={6} md={4} >
+              <RoomCard title="titulo room 1" message="user room 1" >xs=12</RoomCard>
+            </Grid>
+            <Grid item xs={12} sm={6} md={4} >
+              <RoomCard title="titulo room 2" message="user room 2" >xs=12</RoomCard>
+            </Grid>
+            <Grid item xs={12} sm={6} md={4} >
+              <RoomCard title="titulo room 3" message="user room 3" >xs=12</RoomCard>
+            </Grid>
+            <Grid item xs={12} sm={6} md={4} >
+              <RoomCard title="titulo room 1" message="user room 1" >xs=12</RoomCard>
+            </Grid>
           </Grid>
-          <Grid item xs={12} sm={6} md={4} >
-            <RoomCard title="titulo room 2" message="Message room 2" >xs=12</RoomCard>
-          </Grid>
-          <Grid item xs={12} sm={6} md={4} >
-            <RoomCard title="titulo room 3" message="Message room 3" >xs=12</RoomCard>
-          </Grid>
-          <Grid item xs={12} sm={6} md={4} >
-            <RoomCard title="titulo room 1" message="Message room 1" >xs=12</RoomCard>
-          </Grid>
-        </Grid>
-      </div>
-      <div className={classes.chipContent}  > <Typography variant="h5" gutterBottom>
-        Usuários Logados</Typography>  </div>
-      <div className={classes.chipUsers}  >
-        <ChipUsers logedSocketList={logedSocketList} ></ChipUsers>
-      </div>
-
+        </div>
+        <div className={classes.chipContent}  > <Typography variant="h5" gutterBottom>
+          Usuários Logados</Typography>  </div>
+        <div className={classes.chipUsers}  >
+          <ChipUsers logedSocketList={logedSocketList} ></ChipUsers>
+        </div>
     </div>
   )
 }
