@@ -93,11 +93,11 @@ export default function PersistentDrawerLeft(props) {
         <Divider />
         <List>
           {users.map((text, index) => (
-            <ListItem button key={text}>
+            <ListItem button key={index}>
               <ListItemIcon>
                 <FaceIcon></FaceIcon>
               </ListItemIcon>
-              <ListItemText primary={text.user.username} />
+              <ListItemText primary={text.user.email} />
             </ListItem>
           ))}
         </List>
