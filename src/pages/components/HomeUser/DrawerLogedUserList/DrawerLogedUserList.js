@@ -9,7 +9,11 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import FaceIcon from "@material-ui/icons/Face";
+import { Typography } from "@material-ui/core";
+import { withStyles } from "@material-ui/core/styles";
+import Box from "@material-ui/core/Box";
 
+import users from "./fakeUserList";
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
@@ -72,10 +76,15 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function PersistentDrawerLeft(props) {
+const WhiteTextTypography = withStyles({
+  root: {
+    color: "#FFFFFF",
+  },
+})(Typography);
+
+export default function DrawerLogedUserList(props) {
   const classes = useStyles();
-  const theme = useTheme();
-  const { drawerState, users } = props;
+  const { drawerState, roomTitle, users } = props;
 
   return (
     <div className={classes.root}>
@@ -89,15 +98,21 @@ export default function PersistentDrawerLeft(props) {
           paper: classes.drawerPaper,
         }}
       >
-        <div className={classes.drawerHeader}></div>
+        <div className={classes.drawerHeader}>
+          <WhiteTextTypography variant="h6">
+            <Box fontStyle="italic" m={1}>
+              {roomTitle}
+            </Box>
+          </WhiteTextTypography>
+        </div>
         <Divider />
         <List>
-          {users.map((text, index) => (
+          {users.map((element, index) => (
             <ListItem button key={index}>
               <ListItemIcon>
                 <FaceIcon></FaceIcon>
               </ListItemIcon>
-              <ListItemText primary={text.user.email} />
+              <ListItemText primary={element.email} />
             </ListItem>
           ))}
         </List>

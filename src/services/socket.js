@@ -12,7 +12,13 @@ export const initiateSocket = (data) => {
 export const subscribeToRoom = (cb) => {
   if (!socket) return true;
   socket.on("chatMessageToRoom", (msg) => {
-    console.log("Websocket event received!");
+    return cb(null, msg);
+  });
+};
+
+export const logedUsersList = (cb) => {
+  if (!socket) return true;
+  socket.on("logedUsersList", (msg) => {
     return cb(null, msg);
   });
 };

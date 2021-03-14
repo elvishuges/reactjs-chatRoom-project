@@ -4,6 +4,7 @@ import Grid from "@material-ui/core/Grid";
 import { makeStyles } from "@material-ui/core/styles";
 
 import RoomCard from "./../../RoomCard/RoomCard";
+import rooms from "./fakeRoomList";
 // eslint-disable-next-line
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -28,18 +29,11 @@ export default function Index(props) {
   return (
     <div>
       <Grid container spacing={3}>
-        <Grid item xs={12} sm={6} md={4}>
-          <RoomCard title="titulo room 1" message="user room 1" />
-        </Grid>
-        <Grid item xs={12} sm={6} md={4}>
-          <RoomCard title="titulo room 2" message="user room 2" />
-        </Grid>
-        <Grid item xs={12} sm={6} md={4}>
-          <RoomCard title="titulo room 3" message="user room 3" />
-        </Grid>
-        <Grid item xs={12} sm={6} md={4}>
-          <RoomCard title="titulo room 1" message="user room 1" />
-        </Grid>
+        {rooms.map((element, index) => (
+          <Grid key={index} item xs={12} sm={6} md={4}>
+            <RoomCard title={element.title} message={element.subtitle} />
+          </Grid>
+        ))}
       </Grid>
     </div>
   );

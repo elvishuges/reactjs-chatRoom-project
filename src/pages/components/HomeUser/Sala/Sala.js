@@ -12,6 +12,7 @@ import {
   initiateSocket,
   disconnectSocket,
   subscribeToRoom,
+  logedUsersList,
 } from "./../../../../services/socket";
 
 import Chat from "../Chat/Chat";
@@ -22,8 +23,8 @@ const useStyles = makeStyles((theme) => ({
   },
   buttonTogleDrawer: {
     position: "absolute",
-    top: "70px",
-    right: "30px",
+    top: theme.spacing(9),
+    right: theme.spacing(2),
   },
 }));
 
@@ -33,7 +34,6 @@ function Sala(props) {
 
   const [logedSocketList, setUserListLoged] = useState([]);
   const [openDrawerListUser, setOpenDrawerListUser] = useState(true);
-  const [inRoom, setInRoom] = useState(false);
   const [chatMessageList, setchatMessageList] = useState([]);
 
   const user = {
@@ -53,8 +53,14 @@ function Sala(props) {
 
     subscribeToRoom((err, data) => {
       if (err) return;
-      console.log("data recebida", data);
+      console.log("subscribeToRoom data:", data);
       setchatMessageList((oldChatList) => [data, ...oldChatList]);
+    });
+
+    logedUsersList((err, data) => {
+      if (err) return;
+      console.log("logedUsersList data:", data);
+      setUserListLoged((oldLogedUsersList) => [...data, ...oldLogedUsersList]);
     });
 
     return () => {
@@ -66,6 +72,7 @@ function Sala(props) {
     <React.Fragment>
       <DrawerLogedUserList
         users={logedSocketList}
+        roomTitle={roomTitle}
         drawerState={openDrawerListUser}
       ></DrawerLogedUserList>
       <Button
