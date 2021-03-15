@@ -10,8 +10,13 @@ const rooms = [
     id: "123123123",
   },
   {
-    title: "A volta de Everton para FSA",
-    subtitle: "o que aconteceu para ele ir embora ?? ele voltará ??",
+    title: "Praticar Inglês",
+    subtitle: "Vamos praticar inglês",
+    id: "123123123",
+  },
+  {
+    title: "Diversos",
+    subtitle: "Vamos nos conhecer...",
     id: "123123123",
   },
 ];

@@ -22,7 +22,7 @@ const styles = (theme) => ({
     //background: '#ffb74d'
   },
   cardActions: {
-    justifyContent: "right-align",
+    justifyContent: "flex-end",
   },
   cardContent: {
     background: "#78909c",
@@ -53,7 +53,6 @@ function RoomCard(props) {
         </CardContent>
       </CardActionArea>
       <CardActions className={classes.cardActions}>
-        <Button color="inherit">Compartilhar</Button>
         <Button
           onClick={() => handleClickEnterRoom(props.title)}
           color="inherit"

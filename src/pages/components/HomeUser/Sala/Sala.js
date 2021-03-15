@@ -53,7 +53,6 @@ function Sala(props) {
 
     subscribeToRoom((err, data) => {
       if (err) return;
-      console.log("subscribeToRoom data:", data);
       setchatMessageList((oldChatList) => [data, ...oldChatList]);
     });
 
@@ -85,7 +84,11 @@ function Sala(props) {
       </Button>
       <Grid container direction="row" justify="flex-end" alignItems="center">
         <Grid item xs={12} sm={6} md={6}>
-          <Chat chatMessageList={chatMessageList} roomTitle={roomTitle}></Chat>
+          <Chat
+            user={user}
+            chatMessageList={chatMessageList}
+            roomTitle={roomTitle}
+          ></Chat>
         </Grid>
       </Grid>
     </React.Fragment>

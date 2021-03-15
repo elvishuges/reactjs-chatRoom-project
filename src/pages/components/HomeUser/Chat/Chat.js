@@ -11,6 +11,7 @@ import Button from "@material-ui/core/Button";
 import Box from "@material-ui/core/Box";
 
 import { chatMessageFromRoom } from "./../../../../services/socket";
+import { Typography } from "@material-ui/core";
 // eslint-disable-next-line
 const useStyles = makeStyles((theme) => ({
   table: {
@@ -22,6 +23,18 @@ const useStyles = makeStyles((theme) => ({
     top: theme.spacing(9),
     backgroundColor: "#F3F6FB",
   },
+  chatItemDark: {
+    backgroundColor: "#2E3B55",
+  },
+  chatItemLight: {
+    backgroundColor: "#FFFFFF",
+  },
+  messageTextWhiteColor: {
+    color: "#FFFFFF",
+  },
+  messageTextBlackColor: {
+    color: "#000000",
+  },
   headBG: {
     backgroundColor: "#e0e0e0",
   },
@@ -32,15 +45,22 @@ const useStyles = makeStyles((theme) => ({
     height: "65vh",
     overflowY: "auto",
   },
+  textField: {
+    backgroundColor: "#F3F6FB",
+  },
+  disabledButton: {
+    backgroundColor: "red",
+  },
 }));
 
 const Chat = (props) => {
-  const { roomTitle } = props;
+  const { roomTitle, user, chatMessageList } = props;
+  console.log("props chat", props);
   const classes = useStyles();
   const [message, setMessage] = useState("");
   const handleSendMessageClick = () => {
-    chatMessageFromRoom(roomTitle, message);
-    setMessage("");
+    chatMessageFromRoom(roomTitle, message, user.email);
+    setMessage(""); //clean message
   };
 
   return (
@@ -50,14 +70,34 @@ const Chat = (props) => {
       <Grid container component={Paper} className={classes.chatSection}>
         <Grid item xs={12}>
           <List style={{ padding: "20px" }} className={classes.messageArea}>
-            {props.chatMessageList.map((message, index) => (
+            {chatMessageList.map((element, index) => (
               <ListItem key={index}>
                 <Grid container>
-                  <Grid component={Paper} item xs={12}>
+                  <Grid
+                    className={
+                      element.data.userEmail === user.email
+                        ? classes.chatItemDark
+                        : classes.chatItemLight
+                    }
+                    component={Paper}
+                    item
+                    xs={12}
+                  >
                     <ListItemText
                       style={{ padding: "10px" }}
                       align="right"
-                      primary={message.data}
+                      primary={
+                        <Typography
+                          type="body2"
+                          className={
+                            element.data.userEmail === user.email
+                              ? classes.messageTextWhiteColor
+                              : classes.messageTextBlackColor
+                          }
+                        >
+                          {element.data.message}
+                        </Typography>
+                      }
                     ></ListItemText>
                   </Grid>
                   <Grid item xs={12}>
@@ -82,6 +122,7 @@ const Chat = (props) => {
               <TextField
                 id="outlined-basic-email"
                 label="Digite algo..."
+                className={classes.textField}
                 fullWidth
                 variant="outlined"
                 value={message}

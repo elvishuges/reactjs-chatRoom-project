@@ -8,10 +8,12 @@ import Divider from "@material-ui/core/Divider";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
-import FaceIcon from "@material-ui/icons/Face";
+import Avatar from "@material-ui/core/Avatar";
 import { Typography } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
 import Box from "@material-ui/core/Box";
+import Grid from "@material-ui/core/Grid";
+import TextField from "@material-ui/core/TextField";
 
 import users from "./fakeUserList";
 const drawerWidth = 240;
@@ -105,12 +107,24 @@ export default function DrawerLogedUserList(props) {
             </Box>
           </WhiteTextTypography>
         </div>
+
+        <Grid style={{ padding: "10px" }}>
+          <TextField
+            id="outlined-basic-email"
+            label="Buscar"
+            variant="outlined"
+            fullWidth
+          />
+        </Grid>
         <Divider />
         <List>
           {users.map((element, index) => (
             <ListItem button key={index}>
               <ListItemIcon>
-                <FaceIcon></FaceIcon>
+                <Avatar
+                  alt="Remy Sharp"
+                  src="https://material-ui.com/static/images/avatar/1.jpg"
+                />
               </ListItemIcon>
               <ListItemText primary={element.email} />
             </ListItem>

@@ -28,6 +28,7 @@ export const disconnectSocket = () => {
   if (socket) socket.disconnect();
 };
 
-export const chatMessageFromRoom = (roomTitle, message) => {
-  if (socket) socket.emit("chatMessageFromRoom", { roomTitle, message });
+export const chatMessageFromRoom = (roomTitle, message, userEmail) => {
+  if (socket)
+    socket.emit("chatMessageFromRoom", { roomTitle, message, userEmail });
 };
