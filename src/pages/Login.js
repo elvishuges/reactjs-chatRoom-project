@@ -13,7 +13,7 @@ import { withStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import CircularProgress from "@material-ui/core/CircularProgress";
 
-import Copyright from "./components/Login/Copyright";
+import Copyright from "./components/utils/Copyright";
 
 import { connect } from "react-redux";
 import { compose } from "redux";
@@ -40,7 +40,7 @@ const styles = (theme) => ({
   },
 });
 
-class SignIn extends React.Component {
+class Login extends React.Component {
   constructor(props) {
     super(props);
 
@@ -82,6 +82,7 @@ class SignIn extends React.Component {
     const { classes } = this.props;
     const { email, password } = this.state;
     const { user } = this.props;
+    console.log("login user props", user);
 
     const txtButton = () => {
       return user.isLoadingLogin ? (
@@ -138,7 +139,7 @@ class SignIn extends React.Component {
             </Button>
             <Grid container>
               <Grid item>
-                <Link to="/register" variant="body2">
+                <Link href="/register" variant="body2">
                   {" "}
                   {"Não posssue uma conta? Cadastre-se"}{" "}
                 </Link>{" "}
@@ -161,8 +162,8 @@ const mapDispatchToProps = (dispatch) => ({
   dispatch,
 });
 
-const SignStyled = withStyles(styles)(SignIn); // fiz isso para adicionar um store do reducer
+const LoginStyled = withStyles(styles)(Login); // fiz isso para adicionar um store do reducer
 
 export default compose(connect(mapStateToProps, mapDispatchToProps))(
-  SignStyled
+  LoginStyled
 );

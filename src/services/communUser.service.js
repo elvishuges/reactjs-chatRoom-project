@@ -1,14 +1,22 @@
-import { api } from './config'
+import { api } from "./config";
 
 export default {
+  login(email, password) {
+    console.log("*** login ***", email, password);
+    var obj = {
+      email: email,
+      password: password,
+    };
+    return api.post("/auth/login", obj);
+  },
 
-    login(email, password) {
-        console.log('*** em serviço server***', email, password);
-        var obj = {
-            email: email,
-            password: password,
-        }
-        return api.post('/auth/login', obj)
-    },
-
-}
+  register(email, username, password) {
+    console.log("*** register ***", email, username, password);
+    var obj = {
+      email: email,
+      username: username,
+      password: password,
+    };
+    return api.post("/auth/register", obj);
+  },
+};

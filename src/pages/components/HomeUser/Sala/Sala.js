@@ -2,11 +2,13 @@ import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { compose } from "redux";
 import { useParams } from "react-router-dom";
+
 import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
+import { makeStyles } from "@material-ui/core/styles";
 
 import DrawerLogedUserList from "./../DrawerLogedUserList/DrawerLogedUserList";
-import { makeStyles } from "@material-ui/core/styles";
+import Chat from "../Chat/Chat";
 
 import {
   initiateSocket,
@@ -14,8 +16,6 @@ import {
   subscribeToRoom,
   logedUsersList,
 } from "./../../../../services/socket";
-
-import Chat from "../Chat/Chat";
 
 const useStyles = makeStyles((theme) => ({
   content: {

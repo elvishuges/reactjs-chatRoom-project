@@ -1,7 +1,7 @@
 const rooms = [
   {
-    title: "Big Brother Brazil",
-    subtitle: "Vamos falar sobre o big brother",
+    title: "Big Brother Brasil",
+    subtitle: "Vamos falar sobre o BBB",
     id: "123123123",
   },
   {

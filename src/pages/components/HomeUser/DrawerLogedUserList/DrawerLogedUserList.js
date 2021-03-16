@@ -123,7 +123,7 @@ export default function DrawerLogedUserList(props) {
               <ListItemIcon>
                 <Avatar
                   alt="Remy Sharp"
-                  src="https://material-ui.com/static/images/avatar/1.jpg"
+                  src="https://picsum.photos/1920/1080?random"
                 />
               </ListItemIcon>
               <ListItemText primary={element.email} />

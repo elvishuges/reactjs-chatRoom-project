@@ -1,48 +1,37 @@
-import React from 'react';
-import Avatar from '@material-ui/core/Avatar';
-import Button from '@material-ui/core/Button';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import TextField from '@material-ui/core/TextField';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
-import Link from '@material-ui/core/Link';
-import Grid from '@material-ui/core/Grid';
-import Box from '@material-ui/core/Box';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
-import Container from '@material-ui/core/Container';
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
-function Copyright() {
-  return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {'Copyright © '}
-      <Link color="inherit" href="https://material-ui.com/">
-        Your Website
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
+import Avatar from "@material-ui/core/Avatar";
+import Button from "@material-ui/core/Button";
+import CssBaseline from "@material-ui/core/CssBaseline";
+import TextField from "@material-ui/core/TextField";
+import Link from "@material-ui/core/Link";
+import Grid from "@material-ui/core/Grid";
+import Box from "@material-ui/core/Box";
+import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
+import Typography from "@material-ui/core/Typography";
+import { makeStyles } from "@material-ui/core/styles";
+import Container from "@material-ui/core/Container";
 
-function handleLogin() {
-  this.props.history.push("/register");
-}
+import Copyright from "./components/utils/Copyright";
+
+import { connect } from "react-redux";
+import { compose } from "redux";
+import { registerUser } from "../actions/auth.action";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
     marginTop: theme.spacing(8),
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
   },
   avatar: {
     margin: theme.spacing(1),
     backgroundColor: theme.palette.secondary.main,
   },
   form: {
-    width: '100%', // Fix IE 11 issue.
+    width: "100%", // Fix IE 11 issue.
     marginTop: theme.spacing(3),
   },
   submit: {
@@ -50,8 +39,30 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SignUp() {
+function Register(props) {
   const classes = useStyles();
+
+  const [user, setUser] = useState({
+    email: "",
+    username: "",
+    password: "",
+  });
+
+  const dispatch = useDispatch();
+
+  function handleChange(e) {
+    const { name, value } = e.target;
+    setUser((user) => ({ ...user, [name]: value }));
+  }
+
+  function handleSubmit(e) {
+    e.preventDefault();
+
+    if (user.email && user.username && user.username && user.password) {
+      console.log("handle submit");
+      dispatch(registerUser(user.email, user.username, user.password));
+    }
+  }
 
   return (
     <Container component="main" maxWidth="xs">
@@ -61,40 +72,19 @@ export default function SignUp() {
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
-          Sign up
+          Cadastrar-se
         </Typography>
         <form className={classes.form} noValidate>
           <Grid container spacing={2}>
-            <Grid item xs={12} sm={6}>
-              <TextField
-                autoComplete="fname"
-                name="firstName"
-                variant="outlined"
-                required
-                fullWidth
-                id="firstName"
-                label="First Name"
-                autoFocus
-              />
-            </Grid>
-            <Grid item xs={12} sm={6}>
-              <TextField
-                variant="outlined"
-                required
-                fullWidth
-                id="lastName"
-                label="Last Name"
-                name="lastName"
-                autoComplete="lname"
-              />
-            </Grid>
             <Grid item xs={12}>
               <TextField
                 variant="outlined"
                 required
                 fullWidth
+                value={user.email}
+                onChange={handleChange}
                 id="email"
-                label="Email Address"
+                label="Email"
                 name="email"
                 autoComplete="email"
               />
@@ -104,6 +94,20 @@ export default function SignUp() {
                 variant="outlined"
                 required
                 fullWidth
+                value={user.username}
+                onChange={handleChange}
+                id="username"
+                label="Usuário"
+                name="username"
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                variant="outlined"
+                required
+                fullWidth
+                value={user.password}
+                onChange={handleChange}
                 name="password"
                 label="Password"
                 type="password"
@@ -111,16 +115,18 @@ export default function SignUp() {
                 autoComplete="current-password"
               />
             </Grid>
-
           </Grid>
           <Button
             type="submit"
             fullWidth
             variant="contained"
             color="primary"
+            disabled={user.isLoadingLogin}
+            className={classes.submit}
+            onClick={handleSubmit}
             className={classes.submit}
           >
-            Sign Up
+            Cadastrar
           </Button>
           <Grid container justify="flex-end">
             <Grid item>
@@ -131,9 +137,19 @@ export default function SignUp() {
           </Grid>
         </form>
       </div>
-      <Box mt={5}>
-        <Copyright />
-      </Box>
+      <Box mt={8}>
+        <Copyright websiteTitle="SistemasHuges" />
+      </Box>{" "}
     </Container>
   );
 }
+
+const mapStateToProps = (store) => ({
+  user: store.user,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  dispatch,
+});
+
+export default compose(connect(mapStateToProps, mapDispatchToProps))(Register);

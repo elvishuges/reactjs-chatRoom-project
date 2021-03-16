@@ -103,7 +103,7 @@ const Chat = (props) => {
                   <Grid item xs={12}>
                     <ListItemText
                       align="right"
-                      secondary="09:30"
+                      secondary={element.data.userEmail}
                     ></ListItemText>
                   </Grid>
                 </Grid>
