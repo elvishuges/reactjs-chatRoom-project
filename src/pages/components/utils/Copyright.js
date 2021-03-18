@@ -8,7 +8,11 @@ export default function Copyright(props) {
     <Typography variant="body2" color="textSecondary" align="center">
       {" "}
       {"Copyright © "}{" "}
-      <Link color="inherit" href="https://material-ui.com/">
+      <Link
+        color="inherit"
+        target="_blank"
+        href="https://www.linkedin.com/in/elvis-huges-41043897/"
+      >
         {props.websiteTitle}{" "}
       </Link>{" "}
       {new Date().getFullYear()} {"."}{" "}

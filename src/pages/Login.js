@@ -45,8 +45,8 @@ class Login extends React.Component {
     super(props);
 
     this.state = {
-      email: "biri@hotmail.com",
-      password: "123",
+      email: "",
+      password: "",
     };
 
     this.handleChangeInput = this.handleChangeInput.bind(this);

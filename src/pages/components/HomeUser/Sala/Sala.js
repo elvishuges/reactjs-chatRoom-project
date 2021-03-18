@@ -4,6 +4,7 @@ import { compose } from "redux";
 import { useParams } from "react-router-dom";
 
 import Button from "@material-ui/core/Button";
+import Hidden from "@material-ui/core/Hidden";
 import Grid from "@material-ui/core/Grid";
 import { makeStyles } from "@material-ui/core/styles";
 
@@ -33,7 +34,7 @@ function Sala(props) {
   let { roomTitle } = useParams();
 
   const [logedSocketList, setUserListLoged] = useState([]);
-  const [openDrawerListUser, setOpenDrawerListUser] = useState(true);
+  const [openDrawerListUser, setOpenDrawerListUser] = useState(false);
   const [chatMessageList, setchatMessageList] = useState([]);
 
   const user = {
@@ -73,15 +74,20 @@ function Sala(props) {
         users={logedSocketList}
         roomTitle={roomTitle}
         drawerState={openDrawerListUser}
+        handleDrawerStateChange={handleDrawerStateChange}
       ></DrawerLogedUserList>
-      <Button
-        onClick={handleDrawerStateChange}
-        variant="contained"
-        className={classes.buttonTogleDrawer}
-        color="secondary"
-      >
-        usuários Logados
-      </Button>
+      <Hidden smUp implementation="css">
+        <Button
+          onClick={handleDrawerStateChange}
+          variant="contained"
+          className={classes.buttonTogleDrawer}
+          color="primary"
+          size="small"
+        >
+          Usuarios
+        </Button>
+      </Hidden>
+      <br></br>
       <Grid container direction="row" justify="flex-end" alignItems="center">
         <Grid item xs={12} sm={6} md={6}>
           <Chat

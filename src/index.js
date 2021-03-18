@@ -6,16 +6,19 @@ import * as serviceWorker from "./serviceWorker";
 import { Provider } from "react-redux";
 import { store } from "./store/index";
 import { persistor } from "./store/index";
+import { ThemeProvider } from "@material-ui/core";
 
 import { PersistGate } from "redux-persist/integration/react";
+import theme from "./consts/theme";
 
 ReactDOM.render(
-
-  <Provider store={store}>
-    <PersistGate loading={null} persistor={persistor}>
-      <App />
-    </PersistGate>{" "}
-  </Provider>,
+  <ThemeProvider theme={theme}>
+    <Provider store={store}>
+      <PersistGate loading={null} persistor={persistor}>
+        <App />
+      </PersistGate>{" "}
+    </Provider>
+  </ThemeProvider>,
   document.getElementById("root")
 );
 

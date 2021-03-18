@@ -14,13 +14,10 @@ import { chatMessageFromRoom } from "./../../../../services/socket";
 import { Typography } from "@material-ui/core";
 // eslint-disable-next-line
 const useStyles = makeStyles((theme) => ({
-  table: {
-    minWidth: 650,
-  },
   chatSection: {
     width: "100%",
-    height: "900%",
-    top: theme.spacing(9),
+    height: "100%",
+    top: theme.spacing(1),
     backgroundColor: "#F3F6FB",
   },
   chatItemDark: {
@@ -55,21 +52,18 @@ const useStyles = makeStyles((theme) => ({
 
 const Chat = (props) => {
   const { roomTitle, user, chatMessageList } = props;
-  console.log("props chat", props);
   const classes = useStyles();
   const [message, setMessage] = useState("");
   const handleSendMessageClick = () => {
-    chatMessageFromRoom(roomTitle, message, user.email);
+    chatMessageFromRoom(roomTitle, message, user.email, user.username);
     setMessage(""); //clean message
   };
 
   return (
     <div>
-      <br></br>
-      <br></br>
       <Grid container component={Paper} className={classes.chatSection}>
         <Grid item xs={12}>
-          <List style={{ padding: "20px" }} className={classes.messageArea}>
+          <List style={{ padding: "10px" }} className={classes.messageArea}>
             {chatMessageList.map((element, index) => (
               <ListItem key={index}>
                 <Grid container>
@@ -103,7 +97,7 @@ const Chat = (props) => {
                   <Grid item xs={12}>
                     <ListItemText
                       align="right"
-                      secondary={element.data.userEmail}
+                      secondary={element.data.username}
                     ></ListItemText>
                   </Grid>
                 </Grid>
@@ -129,12 +123,20 @@ const Chat = (props) => {
                 onChange={(e) => setMessage(e.target.value)}
               />
             </Grid>
-            <Grid item xs={4} md={2} sm={3} align="right">
+            <Grid
+              style={{ padding: "10px" }}
+              item
+              xs={4}
+              md={2}
+              sm={3}
+              align="right"
+            >
               <Button
                 onClick={handleSendMessageClick}
                 variant="contained"
                 disabled={!message.length}
                 color="primary"
+                style={{ padding: "5px" }}
               >
                 Enviar
               </Button>
