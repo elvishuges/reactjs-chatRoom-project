@@ -30,7 +30,7 @@ export default function Index(props) {
     <div>
       <Grid container spacing={3}>
         {rooms.map((element, index) => (
-          <Grid key={index} item xs={12} sm={4} md={3}>
+          <Grid key={index} item xs={12} sm={6} md={3}>
             <RoomCard title={element.title} message={element.subtitle} />
           </Grid>
         ))}

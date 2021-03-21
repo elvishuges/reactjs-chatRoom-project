@@ -22,7 +22,7 @@ export const loginUser = (username, password) => {
         console.log("*RSP catch !!!!!!!!!*", rsp.response);
         dispatch({
           type: types.failed_login,
-          payload: rsp.response.data.message,
+          payload: rsp.response.data.error,
         });
         return rsp;
       });

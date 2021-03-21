@@ -114,7 +114,7 @@ const Chat = (props) => {
           >
             <Grid item xs={8} md={10} sm={9}>
               <TextField
-                id="outlined-basic-email"
+                id="chat-text-field"
                 label="Digite algo..."
                 className={classes.textField}
                 fullWidth

@@ -18,6 +18,8 @@ import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
 import TextField from "@material-ui/core/TextField";
 import SettingsPowerIcon from "@material-ui/icons/SettingsPower";
+import ArrowBackIcon from "@material-ui/icons/ArrowBack";
+import { Link } from "react-router-dom";
 import users from "./fakeUserList";
 const drawerWidth = 260;
 
@@ -126,13 +128,13 @@ function DrawerLogedUserList(props) {
       <Grid style={{ padding: "10px" }}>
         <TextField
           size="small"
-          id="outlined-basic-email"
+          id="drawer-text-field"
           label="Buscar usuários"
           variant="outlined"
           fullWidth
         />
       </Grid>
-      <Grid style={{ padding: "10px" }}>Usuários</Grid>
+      <Grid style={{ padding: "10px" }}>Usuários na sala</Grid>
       <List>
         {users.map((element, index) => (
           <ListItem button key={index}>
@@ -157,11 +159,16 @@ function DrawerLogedUserList(props) {
           </ListItemIcon>
           <ListItemText primary="Minha conta" />
         </ListItem>
-        <ListItem button>
+        <ListItem
+          button
+          component={Link}
+          to="/user/index"
+          href="https://www.google.com"
+        >
           <ListItemIcon>
-            <SettingsPowerIcon />
+            <ArrowBackIcon />
           </ListItemIcon>
-          <ListItemText primary="Sair" />
+          <ListItemText primary="Sair da sala" />
         </ListItem>
       </List>
       <Divider />

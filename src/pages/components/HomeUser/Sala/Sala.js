@@ -16,6 +16,8 @@ import {
   disconnectSocket,
   subscribeToRoom,
   logedUsersList,
+  newUserInRoom,
+  userOutRoom,
 } from "./../../../../services/socket";
 
 const useStyles = makeStyles((theme) => ({
@@ -33,9 +35,9 @@ function Sala(props) {
   const classes = useStyles();
   let { roomTitle } = useParams();
 
-  const [logedSocketList, setUserListLoged] = useState([]);
+  const [userListLoged, setUserListLoged] = useState([]);
   const [openDrawerListUser, setOpenDrawerListUser] = useState(false);
-  const [chatMessageList, setchatMessageList] = useState([]);
+  const [chatMessageList, setChatMessageList] = useState([]);
 
   const user = {
     username: props.user.username,
@@ -49,12 +51,27 @@ function Sala(props) {
       : setOpenDrawerListUser(true);
   };
 
+  const handleUserOutRoom = (user) => {
+    setUserListLoged(userListLoged.filter((item) => item.email !== user.email));
+  };
+
+  userOutRoom((err, data) => {
+    if (err) return;
+    console.log("userOutRoom", data.user);
+    handleUserOutRoom(data.user);
+  });
+
   useEffect(() => {
     initiateSocket({ roomTitle: roomTitle, user: user });
 
     subscribeToRoom((err, data) => {
       if (err) return;
-      setchatMessageList((oldChatList) => [data, ...oldChatList]);
+      setChatMessageList((oldChatList) => [data, ...oldChatList]);
+    });
+
+    newUserInRoom((err, data) => {
+      if (err) return;
+      setUserListLoged((oldLogedUsersList) => [data, ...oldLogedUsersList]);
     });
 
     logedUsersList((err, data) => {
@@ -64,14 +81,14 @@ function Sala(props) {
     });
 
     return () => {
-      disconnectSocket();
+      disconnectSocket(user, roomTitle);
     };
   }, []);
 
   return (
     <React.Fragment>
       <DrawerLogedUserList
-        users={logedSocketList}
+        users={userListLoged}
         roomTitle={roomTitle}
         drawerState={openDrawerListUser}
         handleDrawerStateChange={handleDrawerStateChange}
@@ -84,7 +101,7 @@ function Sala(props) {
           color="primary"
           size="small"
         >
-          Usuarios
+          Menu
         </Button>
       </Hidden>
       <br></br>

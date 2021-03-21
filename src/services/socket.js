@@ -5,7 +5,6 @@ import io from "socket.io-client";
 let socket;
 export const initiateSocket = (data) => {
   socket = io(baseURL, { transports: ["websocket"] });
-  console.log(`Connecting socket...`);
   if (socket && data) socket.emit("onRoom", data);
 };
 
@@ -23,9 +22,26 @@ export const logedUsersList = (cb) => {
   });
 };
 
-export const disconnectSocket = () => {
-  console.log("Disconnecting socket...");
-  if (socket) socket.disconnect();
+export const newUserInRoom = (cb) => {
+  if (!socket) return true;
+  socket.on("newUserInRoom", (msg) => {
+    return cb(null, msg);
+  });
+};
+
+export const userOutRoom = (cb) => {
+  if (!socket) return true;
+  socket.on("userOutRoom", (user) => {
+    return cb(null, user);
+  });
+};
+
+export const disconnectSocket = (user, roomTitle) => {
+  console.log("Disconnecting socket...", roomTitle);
+  if (socket) {
+    socket.emit("userOutRoom", { user, roomTitle });
+    socket.disconnect();
+  }
 };
 
 export const chatMessageFromRoom = (
