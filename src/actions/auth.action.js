@@ -11,7 +11,7 @@ export const loginUser = (username, password) => {
     const response = await api
       .login(username, password)
       .then((rsp) => {
-        console.log("*RSP OK*", rsp);
+        console.log("*#THEN LOGIN USER#", rsp);
         dispatch({
           type: types.success_login,
           payload: rsp.data.user,
@@ -19,10 +19,16 @@ export const loginUser = (username, password) => {
         return <Redirect to="/" />;
       })
       .catch((rsp) => {
-        console.log("*RSP catch !!!!!!!!!*", rsp.response);
+        console.log("#CATCH LOGIN USER#", rsp);
+        let payload;
+        if (!rsp.response) {
+          payload = "Algo deu errado. Tente novamente mais tarde!";
+        } else {
+          payload = rsp.response.data.error;
+        }
         dispatch({
           type: types.failed_login,
-          payload: rsp.response.data.error,
+          payload: payload,
         });
         return rsp;
       });
@@ -44,13 +50,18 @@ export const registerUser = (email, username, password) => {
         });
         return;
       })
-      .catch((error) => {
-        console.log("*RSP catch !!!!!!!!!*", error);
+      .catch((rsp) => {
+        let payload;
+        if (!rsp.response) {
+          payload = "Algo deu errado. Tente novamente mais tarde!";
+        } else {
+          payload = rsp.response.data.error;
+        }
         dispatch({
           type: types.failed_login,
-          payload: error.response.data.error,
+          payload: payload,
         });
-        return error;
+        return rsp;
       });
     return response;
   };

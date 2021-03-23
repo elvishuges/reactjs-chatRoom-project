@@ -12,6 +12,7 @@ import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 import Copyright from "./components/utils/Copyright";
 
@@ -41,6 +42,7 @@ const useStyles = makeStyles((theme) => ({
 
 function Register(props) {
   const classes = useStyles();
+  const { userProps } = props;
 
   const [user, setUser] = useState({
     email: "",
@@ -63,6 +65,13 @@ function Register(props) {
       dispatch(registerUser(user.email, user.username, user.password));
     }
   }
+  const txtButton = () => {
+    return userProps.isLoadingLogin ? (
+      <CircularProgress size={25} />
+    ) : (
+      "Cadastar"
+    );
+  };
 
   return (
     <Container component="main" maxWidth="xs">
@@ -116,6 +125,7 @@ function Register(props) {
               />
             </Grid>
           </Grid>
+          {userProps.errorLogin && <div>{userProps.errorMessage}</div>}
           <Button
             type="submit"
             fullWidth
@@ -126,7 +136,7 @@ function Register(props) {
             onClick={handleSubmit}
             className={classes.submit}
           >
-            Cadastrar
+            {txtButton()}
           </Button>
           <Grid container justify="flex-end">
             <Grid item>
@@ -145,7 +155,7 @@ function Register(props) {
 }
 
 const mapStateToProps = (store) => ({
-  user: store.user,
+  userProps: store.user,
 });
 
 const mapDispatchToProps = (dispatch) => ({

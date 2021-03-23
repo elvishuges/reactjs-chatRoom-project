@@ -11,32 +11,29 @@ import Register from "./Register";
 import HomeAdmin from "./HomeAdmin";
 import PageNotFound from "./components/PageNotFound";
 class Routes extends Component {
-  componentDidMount() {
-    console.log("==== Routes mounted! ====");
-  }
+  componentDidMount() {}
 
   render() {
     const homeAdminRoutes = [
       {
         path: "/admin/index",
-        sidebar: () => <HomeAdmin />,
+        children: () => <HomeAdmin />,
       },
       {
         path: "/salas",
-        sidebar: () => <HomeAdmin />,
+        children: () => <HomeAdmin />,
       },
     ];
     const homeUserRoutes = [
       {
         path: "/user/index",
-        sidebar: () => <HomeUser />,
+        children: () => <HomeUser />,
       },
       {
         path: "/user/sala/:roomTitle",
-        sidebar: () => <HomeUser />,
+        children: () => <HomeUser />,
       },
     ];
-    console.log("Userrrrrr", this.props.user);
     return (
       <BrowserRouter>
         <Switch>
@@ -53,17 +50,15 @@ class Routes extends Component {
           {homeUserRoutes.map((route, index) => (
             <PrivateRoute
               key={index}
-              roles={["Common"]}
               path={route.path}
-              user={this.props.user}
-              children={<route.sidebar />}
+              children={<route.children />}
             ></PrivateRoute>
           ))}
           {homeAdminRoutes.map((route, index) => (
             <Route
               key={index}
               path={route.path}
-              children={<route.sidebar />}
+              children={<route.children />}
             ></Route>
           ))}
           <Route path="*" component={PageNotFound} />

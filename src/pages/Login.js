@@ -56,6 +56,7 @@ class Login extends React.Component {
     if (this.props.user.isLoggedIn) {
       this.props.history.push("/user/index");
     }
+    console.log("# MODE", process.env.NODE_ENV, "#");
   }
 
   handleChangeInput(e) {
@@ -82,7 +83,6 @@ class Login extends React.Component {
     const { classes } = this.props;
     const { email, password } = this.state;
     const { user } = this.props;
-    console.log("login user props", user);
 
     const txtButton = () => {
       return user.isLoadingLogin ? (

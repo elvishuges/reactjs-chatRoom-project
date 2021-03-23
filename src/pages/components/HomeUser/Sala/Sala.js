@@ -66,6 +66,8 @@ function Sala(props) {
 
     subscribeToRoom((err, data) => {
       if (err) return;
+      var d = new Date();
+      data.data.time = `${d.getHours()}:${d.getMinutes()} `;
       setChatMessageList((oldChatList) => [data, ...oldChatList]);
     });
 
@@ -76,7 +78,6 @@ function Sala(props) {
 
     logedUsersList((err, data) => {
       if (err) return;
-      console.log("logedUsersList data:", data);
       setUserListLoged((oldLogedUsersList) => [...data, ...oldLogedUsersList]);
     });
 

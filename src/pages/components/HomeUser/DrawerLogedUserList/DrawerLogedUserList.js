@@ -8,7 +8,6 @@ import Divider from "@material-ui/core/Divider";
 import PropTypes from "prop-types";
 
 import ListItem from "@material-ui/core/ListItem";
-import Paper from "@material-ui/core/Paper";
 import ListItemText from "@material-ui/core/ListItemText";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import Avatar from "@material-ui/core/Avatar";
@@ -17,10 +16,8 @@ import { withStyles } from "@material-ui/core/styles";
 import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
 import TextField from "@material-ui/core/TextField";
-import SettingsPowerIcon from "@material-ui/icons/SettingsPower";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import { Link } from "react-router-dom";
-import users from "./fakeUserList";
 const drawerWidth = 260;
 
 const useStyles = makeStyles((theme) => ({
@@ -56,6 +53,7 @@ const useStyles = makeStyles((theme) => ({
   },
   drawerPaper: {
     width: drawerWidth,
+    backgroundColor: "#F3F6FB",
   },
   drawerHeader: {
     display: "flex",
@@ -63,7 +61,7 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(0, 1),
     // necessary for content to be below app bar
     ...theme.mixins.toolbar,
-    justifyContent: "flex-end",
+    justifyContent: "flex-start",
     backgroundColor: "#2E3B55",
   },
   content: {
@@ -102,28 +100,19 @@ function DrawerLogedUserList(props) {
 
   const drawer = (
     <div>
-      <div className={classes.drawerHeader}>
+      <div style={{ height: 50 }} className={classes.drawerHeader}>
         <WhiteTextTypography variant="h6">
-          <Box fontStyle="italic" m={1}>
+          <Box
+            textOverflow="ellipsis"
+            overflow="hidden"
+            fontStyle="italic"
+            m={1}
+          >
             {roomTitle}
           </Box>
         </WhiteTextTypography>
       </div>
-      <Grid style={{ padding: "7px" }}>
-        <ListItem>
-          <ListItemIcon>
-            <Avatar
-              alt="Remy Sharp"
-              src="https://toppng.com/uploads/preview/user-account-management-logo-user-icon-11562867145a56rus2zwu.png"
-            />
-          </ListItemIcon>
-          <div style={{ width: 200, whiteSpace: "nowrap" }}>
-            <Box textOverflow="ellipsis" overflow="hidden">
-              Online
-            </Box>
-          </div>
-        </ListItem>
-      </Grid>
+
       <Divider></Divider>
       <Grid style={{ padding: "10px" }}>
         <TextField
@@ -134,14 +123,18 @@ function DrawerLogedUserList(props) {
           fullWidth
         />
       </Grid>
-      <Grid style={{ padding: "10px" }}>Usuários na sala</Grid>
+      <Grid style={{ padding: "10px" }}>
+        <Typography component="h5" variant="subtitle2">
+          Usuários na Sala ({users.length}){" "}
+        </Typography>
+      </Grid>
       <List>
         {users.map((element, index) => (
           <ListItem button key={index}>
             <ListItemIcon>
               <Avatar
                 alt="Remy Sharp"
-                src="https://picsum.photos/1920/1080?random"
+                src={`https://ui-avatars.com/api/?name=${element.username}`}
               />
             </ListItemIcon>
             <div style={{ width: 200, whiteSpace: "nowrap" }}>
@@ -152,13 +145,11 @@ function DrawerLogedUserList(props) {
           </ListItem>
         ))}
         <Divider></Divider>
-        <Grid style={{ padding: "10px" }}>Configurações</Grid>
-        <ListItem button>
-          <ListItemIcon>
-            <SettingsPowerIcon />
-          </ListItemIcon>
-          <ListItemText primary="Minha conta" />
-        </ListItem>
+        <Grid style={{ padding: "10px" }}>
+          <Typography component="h5" variant="subtitle2">
+            Ações
+          </Typography>
+        </Grid>
         <ListItem
           button
           component={Link}
@@ -171,7 +162,6 @@ function DrawerLogedUserList(props) {
           <ListItemText primary="Sair da sala" />
         </ListItem>
       </List>
-      <Divider />
     </div>
   );
   const container =

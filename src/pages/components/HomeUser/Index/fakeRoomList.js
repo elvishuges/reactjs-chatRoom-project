@@ -1,17 +1,17 @@
 const rooms = [
   {
-    title: "Big Brother Brasil",
-    subtitle: "Vamos falar sobre o BBB",
+    title: "Programação",
+    subtitle: "Vamos falar sobre desenvolvimento de Software !!",
     id: "123123123",
   },
   {
-    title: "Lula X Bolsonaro",
-    subtitle: "Vamos discutir a próxima eleição",
+    title: "Espanhol",
+    subtitle: "Vamos praticar espanhol juntos !!",
     id: "123123123",
   },
   {
-    title: "Praticar Inglês",
-    subtitle: "Vamos praticar inglês",
+    title: "Inglês",
+    subtitle: "Vamos praticar inglês juntos !!",
     id: "123123123",
   },
   {

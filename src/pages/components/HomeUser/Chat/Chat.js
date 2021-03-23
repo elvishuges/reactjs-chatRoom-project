@@ -97,7 +97,8 @@ const Chat = (props) => {
                   <Grid item xs={12}>
                     <ListItemText
                       align="right"
-                      secondary={element.data.username}
+                      secondary={`${element.data.username},${element.data.time}
+                      `}
                     ></ListItemText>
                   </Grid>
                 </Grid>
@@ -106,17 +107,24 @@ const Chat = (props) => {
           </List>
           <Grid
             direction="row"
+            className={classes.textField}
             justify="center"
             alignItems="center"
             component={Paper}
             container
             style={{ padding: "20px" }}
           >
-            <Grid item xs={8} md={10} sm={9}>
+            <Grid
+              item
+              xs={8}
+              md={10}
+              sm={9}
+              component={Paper}
+              style={{ backgroundColor: "#00000" }}
+            >
               <TextField
                 id="chat-text-field"
                 label="Digite algo..."
-                className={classes.textField}
                 fullWidth
                 variant="outlined"
                 value={message}

@@ -23,8 +23,6 @@ const initialState = {
 };
 
 export default function auth(state = initialState, action) {
-  console.log("action", action, state);
-
   switch (action.type) {
     case types.submit_login:
       return {

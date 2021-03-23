@@ -1,5 +1,6 @@
 import React from "react";
 import { Switch, Route } from "react-router-dom";
+import PrivateRoute from "./components/Routes/PrivateRoute";
 
 import { makeStyles } from "@material-ui/core/styles";
 
@@ -24,8 +25,19 @@ function HomeUser(props) {
       <AppBarUser title="Início"></AppBarUser>
       <div className={classes.content}>
         <Switch>
-          <Route path="/user/index" render={() => <Index></Index>} />
-          <Route exact path="/user/sala/:roomTitle" render={() => <Sala />} />
+          <PrivateRoute
+            roles={["Common"]}
+            user={props.user}
+            path="/user/index"
+            component={Index}
+          />
+          <PrivateRoute
+            exact
+            roles={["Common"]}
+            component={Sala}
+            user={props.user}
+            path="/user/sala/:roomTitle"
+          />
         </Switch>
       </div>
     </div>
