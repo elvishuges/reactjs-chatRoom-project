@@ -1,4 +1,4 @@
-# Projeto default com possivel estrutura de diretorios.
+# Estrutura de diretorios.
 
 Services são os cruds conexoes api e etc.
 
