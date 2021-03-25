@@ -57,7 +57,6 @@ function Sala(props) {
 
   userOutRoom((err, data) => {
     if (err) return;
-    console.log("userOutRoom", data.user);
     handleUserOutRoom(data.user);
   });
 

@@ -61,7 +61,6 @@ function Register(props) {
     e.preventDefault();
 
     if (user.email && user.username && user.username && user.password) {
-      console.log("handle submit");
       dispatch(registerUser(user.email, user.username, user.password));
     }
   }

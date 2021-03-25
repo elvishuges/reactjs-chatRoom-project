@@ -11,7 +11,6 @@ export default {
   },
 
   register(email, username, password) {
-    console.log("*** register ***", email, username, password);
     var obj = {
       email: email,
       username: username,
