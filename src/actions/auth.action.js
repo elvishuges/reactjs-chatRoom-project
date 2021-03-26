@@ -11,7 +11,6 @@ export const loginUser = (username, password) => {
     const response = await api
       .login(username, password)
       .then((rsp) => {
-        console.log("*#THEN LOGIN USER#", rsp);
         dispatch({
           type: types.success_login,
           payload: rsp.data.user,
@@ -19,7 +18,6 @@ export const loginUser = (username, password) => {
         return <Redirect to="/" />;
       })
       .catch((rsp) => {
-        console.log("#CATCH LOGIN USER#", rsp);
         let payload;
         if (!rsp.response) {
           payload = "Algo deu errado. Tente novamente mais tarde!";
