@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
+import Paper from "@material-ui/core/Paper";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import TextField from "@material-ui/core/TextField";
 import Link from "@material-ui/core/Link";
@@ -15,6 +16,7 @@ import Container from "@material-ui/core/Container";
 import CircularProgress from "@material-ui/core/CircularProgress";
 
 import Copyright from "./components/utils/Copyright";
+import LoginRegisterBar from "./components/utils/LoginRegisterBar";
 
 import { connect } from "react-redux";
 import { compose } from "redux";
@@ -26,6 +28,14 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
+    marginTop: theme.spacing(3),
+    marginBottom: theme.spacing(3),
+    padding: theme.spacing(5),
+    [theme.breakpoints.up(600 + theme.spacing(3) * 2)]: {
+      marginTop: theme.spacing(6),
+      marginBottom: theme.spacing(6),
+      padding: theme.spacing(3),
+    },
   },
   avatar: {
     margin: theme.spacing(1),
@@ -74,8 +84,9 @@ function Register(props) {
 
   return (
     <Container component="main" maxWidth="xs">
+      <LoginRegisterBar title="Chat app"></LoginRegisterBar>
       <CssBaseline />
-      <div className={classes.paper}>
+      <Paper elevation={4} className={classes.paper}>
         <Avatar className={classes.avatar}>
           <LockOutlinedIcon />
         </Avatar>
@@ -88,6 +99,7 @@ function Register(props) {
               <TextField
                 variant="outlined"
                 required
+                size="small"
                 fullWidth
                 value={user.email}
                 onChange={handleChange}
@@ -101,6 +113,7 @@ function Register(props) {
               <TextField
                 variant="outlined"
                 required
+                size="small"
                 fullWidth
                 value={user.username}
                 onChange={handleChange}
@@ -113,6 +126,7 @@ function Register(props) {
               <TextField
                 variant="outlined"
                 required
+                size="small"
                 fullWidth
                 value={user.password}
                 onChange={handleChange}
@@ -145,7 +159,7 @@ function Register(props) {
             </Grid>
           </Grid>
         </form>
-      </div>
+      </Paper>
       <Box mt={8}>
         <Copyright websiteTitle="SistemasHuges" />
       </Box>{" "}

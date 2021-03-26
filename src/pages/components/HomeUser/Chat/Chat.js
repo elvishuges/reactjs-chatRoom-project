@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
     width: "100%",
     height: "100%",
     top: theme.spacing(1),
-    backgroundColor: "#F3F6FB",
+    backgroundColor: "#F2F2F2",
   },
   chatItemDark: {
     backgroundColor: "#2E3B55",

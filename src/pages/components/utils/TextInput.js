@@ -27,7 +27,15 @@ export default class TextInput extends Component {
   }
 
   render() {
-    const { label, value, type, onChange, name, autoComplete } = this.props;
+    const {
+      label,
+      value,
+      type,
+      onChange,
+      name,
+      autoComplete,
+      size,
+    } = this.props;
     return (
       <TextField
         variant="outlined"
@@ -35,6 +43,7 @@ export default class TextInput extends Component {
         required
         value={value}
         fullWidth
+        size={size}
         name={name}
         label={label}
         type={type}

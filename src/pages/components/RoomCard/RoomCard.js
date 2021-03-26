@@ -12,7 +12,7 @@ import VisibilityIcon from "@material-ui/icons/Visibility";
 
 const WhiteTextTypography = withStyles({
   root: {
-    color: "#eceff1",
+    color: "grey",
   },
 })(Typography);
 
@@ -26,7 +26,6 @@ const styles = (theme) => ({
     justifyContent: "flex-end",
   },
   cardContent: {
-    background: "#78909c",
     minHeight: 120,
   },
 });
@@ -41,14 +40,10 @@ function RoomCard(props) {
     <Card className={classes.root}>
       <CardActionArea>
         <CardContent className={classes.cardContent}>
-          <WhiteTextTypography variant="h5" component="h2">
+          <WhiteTextTypography color="primary" variant="h5" component="h2">
             {props.title}
           </WhiteTextTypography>
-          <WhiteTextTypography
-            variant="body2"
-            color="textSecondary"
-            component="p"
-          >
+          <WhiteTextTypography variant="body2" color="primary" component="p">
             {props.message}
           </WhiteTextTypography>
         </CardContent>

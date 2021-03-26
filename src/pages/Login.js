@@ -1,5 +1,7 @@
 import React from "react";
+
 import Avatar from "@material-ui/core/Avatar";
+import Paper from "@material-ui/core/Paper";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
@@ -14,6 +16,7 @@ import Container from "@material-ui/core/Container";
 import CircularProgress from "@material-ui/core/CircularProgress";
 
 import Copyright from "./components/utils/Copyright";
+import LoginRegisterBar from "./components/utils/LoginRegisterBar";
 
 import { connect } from "react-redux";
 import { compose } from "redux";
@@ -26,6 +29,14 @@ const styles = (theme) => ({
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
+    marginTop: theme.spacing(3),
+    marginBottom: theme.spacing(3),
+    padding: theme.spacing(5),
+    [theme.breakpoints.up(600 + theme.spacing(3) * 2)]: {
+      marginTop: theme.spacing(6),
+      marginBottom: theme.spacing(6),
+      padding: theme.spacing(3),
+    },
   },
   avatar: {
     margin: theme.spacing(1),
@@ -94,20 +105,21 @@ class Login extends React.Component {
 
     return (
       <Container component="main" maxWidth="xs">
+        <LoginRegisterBar title="Chat app"></LoginRegisterBar>
         <CssBaseline />
-        <div> </div>{" "}
-        <div className={classes.paper}>
+        <Paper elevation={4} className={classes.paper}>
           <Avatar className={classes.avatar}>
             <LockOutlinedIcon />
           </Avatar>{" "}
           <Typography component="h1" variant="h5">
             Sign in
           </Typography>{" "}
-          <form className={classes.form} noValidate>
+          <form className={classes.form}>
             <TextInput
               label="Email"
               name="email"
               id="email"
+              size="small"
               value={email}
               type="email"
               onChange={this.handleChangeInput}
@@ -117,6 +129,7 @@ class Login extends React.Component {
             <TextInput
               label="Password"
               name="password"
+              size="small"
               value={password}
               type="password"
               onChange={this.handleChangeInput}
@@ -146,7 +159,7 @@ class Login extends React.Component {
               </Grid>{" "}
             </Grid>{" "}
           </form>{" "}
-        </div>{" "}
+        </Paper>{" "}
         <Box mt={8}>
           <Copyright websiteTitle="SistemasHuges" />
         </Box>{" "}
