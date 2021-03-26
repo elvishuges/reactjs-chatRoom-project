@@ -7,6 +7,7 @@ if (process.env.NODE_ENV !== "production") {
 } else {
   apiURL = process.env.REACT_APP_API_URL_PRODUCTION;
 }
+console.log("###API URL###", apiURL);
 
 export const baseURL = apiURL;
 

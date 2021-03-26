@@ -14,7 +14,6 @@ const IsNotAuthenticated = ({ component: Component, user, ...rest }) => (
   />
 );
 function handleRouteAcess(user, props) {
-  console.log("User ifNotAuth", user);
   switch (user.role.name) {
     case "Common":
       return (

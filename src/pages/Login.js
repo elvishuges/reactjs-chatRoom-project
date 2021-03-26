@@ -56,7 +56,7 @@ class Login extends React.Component {
     if (this.props.user.isLoggedIn) {
       this.props.history.push("/user/index");
     }
-    console.log("# MODE", process.env.NODE_ENV, "#");
+    console.log("# MODE", process.env.REACT_APP_API_URL_PRODUCTION, "#");
   }
 
   handleChangeInput(e) {
