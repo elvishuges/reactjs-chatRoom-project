@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 import PrivateRoute from "./components/Routes/PrivateRoute";
 import IfNotAuthenticated from "./components/Routes/IfNotAuthenticated";
 import { connect } from "react-redux";
@@ -61,6 +61,12 @@ class Routes extends Component {
               children={<route.children />}
             ></Route>
           ))}
+          <Route
+            path="/"
+            render={() => {
+              return <Redirect to="/login" />;
+            }}
+          />
           <Route path="*" component={PageNotFound} />
         </Switch>
       </BrowserRouter>
