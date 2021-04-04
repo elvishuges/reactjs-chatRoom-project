@@ -20,7 +20,7 @@ import LoginRegisterBar from "./components/utils/LoginRegisterBar";
 
 import { connect } from "react-redux";
 import { compose } from "redux";
-import { loginUser } from "../actions/auth.action";
+import { loginUser, logoutUser } from "../actions/auth.action";
 import TextInput from "./components/utils/TextInput";
 
 const styles = (theme) => ({
@@ -75,6 +75,10 @@ class Login extends React.Component {
     this.setState({
       [name]: value,
     });
+  }
+  async componentDidMount() {
+    console.log("LOGIN INTERFACE !!!");
+    const resp = await this.props.dispatch(logoutUser());
   }
 
   handleRegister() {
