@@ -90,13 +90,8 @@ function DrawerLogedUserList(props) {
   const classes = useStyles();
   const theme = useTheme();
 
-  const {
-    drawerState,
-    handleDrawerStateChange,
-    roomTitle,
-    users,
-    window,
-  } = props;
+  const { drawerState, handleDrawerStateChange, roomTitle, users, window } =
+    props;
 
   const drawer = (
     <div>
